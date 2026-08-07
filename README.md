@@ -70,6 +70,17 @@ firebase deploy --only hosting,firestore:rules
 
 > Varning: oautentiserade skrivningar är medvetet aktiverade i fas 1 enbart för sidstatus-spårning.
 
+## Lösenordsgrind (client-side)
+
+Appen skyddas av en enkel lösenordsgrind i webbläsaren:
+
+- Skyddet är **enbart client-side** och förhindrar casual åtkomst.
+- Det är **inte** ett starkt säkerhetsskydd. En teknisk användare kan kringgå det genom att inspektera frontend-koden.
+- Källkoden lagrar **endast ett SHA-256-hash** av lösenordet – inte lösenordet i klartext.
+- Vid korrekt lösenord sparas ett unlock-flagg i `localStorage` (`sjobo_sprakapp_unlocked`) så att appen förblir upplåst vid framtida besök i samma webbläsare.
+- Knappen **Lås** i sidhuvudet rensar flagget och låser appen igen.
+- Ingen Firebase Authentication används.
+
 ## Rekommenderad uppföljning: App Check
 
 Appen använder ingen inloggning i fas 1. För att minska missbruk bör Firebase App Check aktiveras i nästa steg (t.ex. reCAPTCHA Enterprise för webben) och enforcement slås på för Firestore när klienten uppdaterats.
