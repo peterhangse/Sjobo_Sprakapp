@@ -653,6 +653,78 @@
     .modal-buttons .btn { width: 100%; }
   }
 
+  /* === Archive modal === */
+  .modal-archive { max-width: 640px; }
+  .archive-list {
+    max-height: 340px;
+    overflow-y: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 20px;
+  }
+  .archive-empty {
+    margin: 0;
+    padding: 24px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+  .archive-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border-light);
+    font-size: 14px;
+  }
+  .archive-row:last-child { border-bottom: none; }
+  .archive-row:nth-child(even) { background: var(--blue-50); }
+  .archive-title {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .archive-name {
+    font-weight: 600;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .archive-url {
+    font-size: 12px;
+    color: var(--blue-500);
+    text-decoration: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .archive-url:hover { text-decoration: underline; }
+  .archive-errors {
+    white-space: nowrap;
+    color: var(--text-mid);
+    font-size: 13px;
+    padding-top: 2px;
+  }
+  .archive-date {
+    white-space: nowrap;
+    color: var(--text-muted);
+    font-size: 12px;
+    padding-top: 3px;
+  }
+  .btn-outline {
+    background: none;
+    border: 1.5px solid var(--blue-500);
+    color: var(--blue-500);
+    border-radius: var(--radius);
+    padding: 8px 18px;
+    font-weight: 600;
+    transition: background 0.15s, color 0.15s;
+  }
+  .btn-outline:hover { background: var(--blue-100); }
+
   /* === Toast === */
   .toast {
     position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
@@ -682,7 +754,7 @@
     </button>
     <nav class="topbar-nav">
       <button class="topbar-link" type="button" onclick="goto('info')">Så funkar det</button>
-      <button class="topbar-link" type="button" onclick="openExportModal()">Spara mina sidor</button>
+      <button class="topbar-link" type="button" onclick="openExportModal()">Senast fixade sidor</button>
     </nav>
   </div>
 </header>
@@ -699,20 +771,15 @@
 </main>
 
 <div class="modal-backdrop" id="export-modal" onclick="if(event.target===this)closeExportModal()">
-  <div class="modal">
-    <h2>Spara mina rättade sidor</h2>
+  <div class="modal modal-archive">
+    <h2>Senast fixade sidor</h2>
     <p class="modal-count" id="modal-count">0 sidor markerade som klara</p>
-    <div class="modal-instructions">
-      <h3>Så här gör du</h3>
-      <ol>
-        <li>Klicka <strong>"Spara fil"</strong> nedan.</li>
-        <li>Filen laddas ner till din <strong>Hämtade filer</strong>-mapp.</li>
-        <li>Flytta filen till mappen <strong>"Sparade sidor"</strong> i samma OneDrive-mapp som appen.</li>
-      </ol>
+    <div class="archive-list" id="archive-list">
+      <p class="archive-empty">Inga sidor är markerade som klara ännu.</p>
     </div>
     <div class="modal-buttons">
-      <button class="btn btn-secondary" type="button" onclick="closeExportModal()">Avbryt</button>
-      <button class="btn btn-primary" type="button" onclick="doExport()">Spara fil</button>
+      <button class="btn btn-secondary" type="button" onclick="closeExportModal()">Stäng</button>
+      <button class="btn btn-outline" type="button" onclick="doExport()">Exportera lista</button>
     </div>
   </div>
 </div>
@@ -889,6 +956,19 @@ function fmtDate(iso) {
   if (!iso) return "";
   try { return new Date(iso).toLocaleDateString("sv-SE", { year: "numeric", month: "short", day: "numeric" }); }
   catch { return ""; }
+}
+function formatDateTime(iso) {
+  if (!iso) return "";
+  try {
+    return new Intl.DateTimeFormat("sv-SE", { dateStyle: "medium", timeStyle: "short" }).format(new Date(iso));
+  } catch { return ""; }
+}
+function getPageByUrl(url) {
+  return PAGES.find(p => p.url === url) || null;
+}
+function getErrorCountForUrl(url) {
+  const p = getPageByUrl(url);
+  return p ? p.total : 0;
 }
 function showToast(msg, isError) {
   const t = document.getElementById("toast");
@@ -1240,11 +1320,36 @@ function renderInfo() {
 
 window.openExportModal = function() {
   const modal = document.getElementById("export-modal");
-  const count = Object.keys(doneState).length;
+  const entries = Object.entries(doneState)
+    .map(([url, timestamp]) => ({ url, timestamp }))
+    .sort((a, b) => (b.timestamp > a.timestamp ? 1 : b.timestamp < a.timestamp ? -1 : 0));
+  const count = entries.length;
   const text = count === 0
     ? "Inga sidor markerade som klara än"
     : `${count} ${count === 1 ? "sida markerad som klar" : "sidor markerade som klara"}`;
   document.getElementById("modal-count").textContent = text;
+
+  const listEl = document.getElementById("archive-list");
+  if (count === 0) {
+    listEl.innerHTML = '<p class="archive-empty">Inga sidor är markerade som klara ännu.</p>';
+  } else {
+    listEl.innerHTML = entries.map(({ url, timestamp }) => {
+      const page = getPageByUrl(url);
+      const name = escapeHTML(page ? page.sida || url : url);
+      const errCount = page ? page.total : 0;
+      const errText = errCount === 1 ? "1 fel" : `${errCount} fel`;
+      const dateText = escapeHTML(formatDateTime(timestamp));
+      const safeUrl = escapeHTML(url);
+      return `<div class="archive-row">
+        <div class="archive-title">
+          <span class="archive-name">${name}</span>
+          <a class="archive-url" href="${safeUrl}" target="_blank" rel="noopener noreferrer">${safeUrl}</a>
+        </div>
+        <span class="archive-errors">${errText}</span>
+        <span class="archive-date">${dateText}</span>
+      </div>`;
+    }).join("");
+  }
   modal.classList.add("show");
 };
 window.closeExportModal = function() {
