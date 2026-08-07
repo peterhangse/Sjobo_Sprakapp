@@ -719,6 +719,8 @@
 
 <div class="toast" id="toast"></div>
 
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
 <script>
 const FORV_LIST = [
   { id: "familje", name: "Familjeförvaltningen", desc: "Socialtjänst, skola, kultur" },
@@ -772,59 +774,104 @@ let PAGES = [];
 let doneState = {};
 let showDone = false;
 
-// === Lagring ==============================================================
-// Två lägen:
-//  1. window.storage (delad mellan kollegor) — finns bara om filen körs som
-//     publicerad Claude-artefakt. Vi försöker den först.
-//  2. localStorage (per webbläsare/dator) — fallback för t.ex. G-mapp/file://
-//     Funkar för individuell progress men delas inte mellan kollegor.
-const STORAGE_KEY = "sjobo_sprakratting_done_pages";
+// === Lagring (Firestore) ==================================================
+const PAGE_STATUS_COLLECTION = "pageStatus";
+const FIREBASE_CONFIG = window.FIREBASE_CONFIG || {
+  apiKey: "REPLACE_ME",
+  authDomain: "REPLACE_ME.firebaseapp.com",
+  projectId: "REPLACE_ME",
+  appId: "REPLACE_ME"
+};
 
-function hasClaudeStorage() {
-  return typeof window !== "undefined"
-      && window.storage
-      && typeof window.storage.get === "function";
+let firestoreDb = null;
+let unsubscribePageStatus = null;
+
+function hasFirebaseConfig() {
+  const isConfigured = v => typeof v === "string" && v.trim() !== "" && !v.startsWith("REPLACE_ME");
+  return isConfigured(FIREBASE_CONFIG.apiKey)
+      && isConfigured(FIREBASE_CONFIG.projectId)
+      && isConfigured(FIREBASE_CONFIG.appId);
+}
+
+function initFirestore() {
+  if (firestoreDb) return firestoreDb;
+  if (!(window.firebase && typeof window.firebase.initializeApp === "function")) return null;
+  if (!hasFirebaseConfig()) return null;
+  try {
+    if (!firebase.apps.length) firebase.initializeApp(FIREBASE_CONFIG);
+    firestoreDb = firebase.firestore();
+    return firestoreDb;
+  } catch (e) {
+    console.error("Firebase init misslyckades", e);
+    return null;
+  }
+}
+
+function urlToPageId(url) {
+  const bytes = new TextEncoder().encode(url);
+  let binary = "";
+  const chunk = 0x8000;
+  for (let i = 0; i < bytes.length; i += chunk) {
+    binary += String.fromCharCode(...bytes.subarray(i, i + chunk));
+  }
+  return btoa(binary).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/g, "");
+}
+
+function applyDoneStateSnapshot(snapshot) {
+  const nextState = {};
+  snapshot.forEach(doc => {
+    const d = doc.data();
+    if (!d || d.status !== "cleared" || typeof d.url !== "string") return;
+    nextState[d.url] = typeof d.clearedAt === "string" && d.clearedAt ? d.clearedAt : new Date().toISOString();
+  });
+  doneState = nextState;
 }
 
 async function loadState() {
   doneState = {};
-  if (hasClaudeStorage()) {
-    try {
-      const r = await window.storage.get(STORAGE_KEY, true);
-      if (r && r.value) {
-        const raw = JSON.parse(r.value);
-        for (const [url, v] of Object.entries(raw)) {
-          if (typeof v === "string") doneState[url] = v;
-          else if (v && v.k) doneState[url] = v.k;
-        }
-        return;
-      }
-    } catch (e) { /* fall through till localStorage */ }
+  const db = initFirestore();
+  if (!db) {
+    showToast("Firebase är inte konfigurerat ännu", true);
+    return;
   }
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) {
-      const parsed = JSON.parse(raw);
-      for (const [url, v] of Object.entries(parsed)) {
-        if (typeof v === "string") doneState[url] = v;
-        else if (v && v.k) doneState[url] = v.k;
+
+  if (unsubscribePageStatus) unsubscribePageStatus();
+
+  await new Promise(resolve => {
+    let initialLoaded = false;
+    unsubscribePageStatus = db.collection(PAGE_STATUS_COLLECTION).onSnapshot(
+      snapshot => {
+        applyDoneStateSnapshot(snapshot);
+        if (!initialLoaded) {
+          initialLoaded = true;
+          resolve();
+          return;
+        }
+        route();
+      },
+      error => {
+        console.error("Kunde inte läsa sidstatus", error);
+        showToast("Kunde inte läsa delad status", true);
+        if (!initialLoaded) {
+          initialLoaded = true;
+          resolve();
+        }
       }
-    }
-  } catch (e) { /* doneState förblir {} */ }
+    );
+  });
 }
 
-async function saveState() {
-  if (hasClaudeStorage()) {
-    try {
-      await window.storage.set(STORAGE_KEY, JSON.stringify(doneState), true);
-      return;
-    } catch (e) { /* fall through till localStorage */ }
-  }
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(doneState));
-  } catch (e) {
-    showToast("Kunde inte spara — försök igen", true);
-  }
+async function saveState(url, status, clearedAtIso) {
+  const db = initFirestore();
+  if (!db) throw new Error("Firebase saknas");
+  const updatedAt = new Date().toISOString();
+  const payload = {
+    url,
+    status,
+    clearedAt: status === "cleared" ? (clearedAtIso || updatedAt) : "",
+    updatedAt
+  };
+  await db.collection(PAGE_STATUS_COLLECTION).doc(urlToPageId(url)).set(payload);
 }
 
 function pagesInScope(fvid, vkid) {
@@ -1235,16 +1282,30 @@ document.addEventListener("keydown", function(e) {
 window.goto = function(hash) { location.hash = hash || "home"; };
 window.markDoneAndNext = async function(urlEnc, nextEnc, fallbackHash, group) {
   const url = decodeURIComponent(urlEnc);
-  doneState[url] = new Date().toISOString();
-  await saveState();
-  showToast("✓ Sidan markerad som klar");
+  const clearedAt = new Date().toISOString();
+  doneState[url] = clearedAt;
+  try {
+    await saveState(url, "cleared", clearedAt);
+    showToast("✓ Sidan markerad som klar");
+  } catch (e) {
+    delete doneState[url];
+    showToast("Kunde inte spara delad status", true);
+    route();
+    return;
+  }
   location.hash = nextEnc ? `page/${nextEnc}/${group || "alla"}` : fallbackHash;
 };
 window.undoDone = async function(urlEnc) {
   const url = decodeURIComponent(urlEnc);
+  const previous = doneState[url];
   delete doneState[url];
-  await saveState();
-  showToast("Status återställd");
+  try {
+    await saveState(url, "open");
+    showToast("Status återställd");
+  } catch (e) {
+    if (previous) doneState[url] = previous;
+    showToast("Kunde inte uppdatera delad status", true);
+  }
   route();
 };
 
