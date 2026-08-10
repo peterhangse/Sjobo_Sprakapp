@@ -877,45 +877,9 @@
 <main class="page" id="app">
   <!-- Visas bara om JS inte körs (t.ex. OneDrive-förhandsgranskning). När JS körs
        ersätts hela innehållet i #app av route() omedelbart vid sidladdning. -->
-  <div class="preview-fallback" aria-busy="true" aria-label="Hämtar innehåll">
-    <span class="sk sk-rad sk-hero"></span>
-    <span class="sk sk-rad sk-sub"></span>
-    <div class="sk-grid">
-      <div class="sk-kort"><span class="sk sk-rad" style="width:62%"></span>
-        <span class="sk sk-rad sk-liten" style="width:88%"></span>
-        <span class="sk sk-tal"></span></div>
-      <div class="sk-kort"><span class="sk sk-rad" style="width:62%"></span>
-        <span class="sk sk-rad sk-liten" style="width:88%"></span>
-        <span class="sk sk-tal"></span></div>
-      <div class="sk-kort"><span class="sk sk-rad" style="width:62%"></span>
-        <span class="sk sk-rad sk-liten" style="width:88%"></span>
-        <span class="sk sk-tal"></span></div>
-      <div class="sk-kort"><span class="sk sk-rad" style="width:62%"></span>
-        <span class="sk sk-rad sk-liten" style="width:88%"></span>
-        <span class="sk sk-tal"></span></div>
-    </div>
-    <noscript><p class="sk-noscript">Verktyget behöver JavaScript. Slå på det i webbläsaren och ladda om sidan.</p></noscript>
+  <div class="preview-fallback">
+    <noscript><p>Verktyget behöver JavaScript. Slå på det i webbläsaren och ladda om sidan.</p></noscript>
   </div>
-  <style>
-    .preview-fallback{padding:.5rem 0 2rem;
-      /* sk-trosk: skelettet visas forst efter 400 ms. Gar laddningen
-         snabbare hinner route() byta ut innehallet och man ser det aldrig. */
-      opacity:0;animation:sk-trosk 0s linear 400ms forwards}
-    @keyframes sk-trosk{to{opacity:1}}
-    .sk{display:block;border-radius:4px;background:#e8edf2;
-        background-image:linear-gradient(90deg,#e8edf2 0%,#f4f7fa 50%,#e8edf2 100%);
-        background-size:200% 100%;animation:sk-svep 1.5s linear infinite}
-    .sk-rad{height:1.1rem;margin-bottom:.6rem}
-    .sk-hero{height:2rem;width:48%;margin-bottom:.9rem}
-    .sk-sub{width:64%;height:.95rem;margin-bottom:2rem}
-    .sk-liten{height:.85rem}
-    .sk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(15rem,1fr));gap:1rem}
-    .sk-kort{border:1px solid #e2e8ef;border-radius:8px;padding:1.15rem}
-    .sk-tal{display:block;height:2.2rem;width:45%;margin-top:1.4rem;border-radius:4px;background:#eef2f6}
-    .sk-noscript{color:#61707f}
-    @keyframes sk-svep{to{background-position:-200% 0}}
-    @media (prefers-reduced-motion:reduce){.sk{animation:none}}
-  </style>
 </main>
 
 <div class="modal-backdrop" id="export-modal" onclick="if(event.target===this)closeExportModal()">
@@ -1454,7 +1418,7 @@ window.kommunSokAndrad = function(v) {
 window.kopieraKommando = async function(id) {
   try {
     await navigator.clipboard.writeText(skrapkommando(id));
-    showToast("Kommandot kopierat");
+    showToast("✓ Kommandot kopierat");
   } catch (e) {
     showToast("Kunde inte kopiera", true);
   }
@@ -1472,20 +1436,20 @@ function renderKommuner() {
         <div class="kommundoman">${escapeHTML(k.doman)}</div>
       </div>
       ${har
-        ? `<button class="btn btn-primary" type="button" onclick="goto('kommun/${k.id}')">Oppna</button>`
+        ? `<button class="btn btn-primary" type="button" onclick="goto('kommun/${k.id}')">Öppna</button>`
         : `<button class="btn btn-outline" type="button" onclick="kopieraKommando('${k.id}')">Kopiera skrapkommando</button>`}
     </div>`;
   }).join("");
   const antalMedData = kommunData ? Object.values(kommunData).filter(Boolean).length : "-";
   return `<div class="container">
-    <h1 class="hero">Valj kommun</h1>
+    <h1 class="hero">Välj kommun</h1>
     <p class="hero-sub">${KOMMUNER.length} kommuner i registret. ${antalMedData} har granskad data.</p>
     <div class="sokrad">
-      <label class="sr-only" for="kommunsok">Sok kommun</label>
-      <input id="kommunsok" type="search" class="sokfalt" placeholder="Sok kommun, doman eller kommunkod"
+      <label class="sr-only" for="kommunsok">Sök kommun</label>
+      <input id="kommunsok" type="search" class="sokfalt" placeholder="Sök kommun, domän eller kommunkod…"
              value="${escapeHTML(kommunSok)}" oninput="kommunSokAndrad(this.value)" autocomplete="off">
     </div>
-    ${q ? `<p class="sokresultat" role="status">${lista.length} traffar</p>` : ""}
+    ${q ? `<p class="sokresultat" role="status">${lista.length} träffar</p>` : ""}
     <div class="kommunlista">${kort || "<p>Ingen kommun matchar.</p>"}</div>
   </div>`;
 }
@@ -1796,8 +1760,8 @@ function stallInSidhuvud() {
     if (slot) slot.innerHTML = '<span class="kommunmarkor" style="background:' +
       k.ton + ';width:52px;height:52px;font-size:.9rem">' + k.kod + '</span>';
   }
-  if (titel) titel.textContent = "Sprakrattning " + k.doman;
-  document.title = "Sprakrattning " + k.doman;
+  if (titel) titel.textContent = "Språkrättning " + k.doman;
+  document.title = "Språkrättning " + k.doman;
 
   const nav = document.querySelector(".topbar-nav");
   if (adminLage && nav && !document.getElementById("btn-kommuner")) {
