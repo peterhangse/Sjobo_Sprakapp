@@ -791,6 +791,26 @@
   .pw-gate-btn:active { transform: scale(0.97); }
   .pw-gate-btn:focus-visible { outline: 2px solid var(--blue-500); outline-offset: 2px; }
 </style>
+<style>
+  /* FOKUS OCH TILLGANGLIGHET */
+  .hoppa-till-innehall{position:absolute;left:-9999px;top:0;z-index:100;
+    background:var(--blue-500,#1a4d7a);color:#fff;padding:.7rem 1.1rem;
+    text-decoration:none;border-radius:0 0 4px 0}
+  .hoppa-till-innehall:focus{left:0}
+  .tile:focus-visible,.page-row:focus-visible,.btn:focus-visible,
+  .modal button:focus-visible,input:focus-visible{
+    outline:3px solid var(--blue-500,#1a4d7a);outline-offset:2px}
+  .page-row:focus-visible{outline-offset:-3px}
+</style>
+<style>
+  .sokrad{display:flex;gap:.6rem;align-items:center;margin:0 0 .8rem}
+  .sokfalt{flex:1;padding:.6rem .8rem;border:1px solid var(--linje,#d6dae0);
+    border-radius:6px;font:inherit;font-size:.95rem;min-width:0}
+  .sokfalt:focus{border-color:var(--blue-500,#1a4d7a)}
+  .sokresultat{margin:0 0 .8rem;font-size:.85rem;color:var(--dov,#61707f)}
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+    overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+</style>
 </head>
 <body>
 <div id="pw-gate">
@@ -802,6 +822,7 @@
     <button class="pw-gate-btn" type="button" onclick="doUnlock()">Öppna</button>
   </div>
 </div>
+<a class="hoppa-till-innehall" href="#app">Hoppa till innehållet</a>
 <header class="topbar">
   <div class="topbar-inner">
     <button class="brand-link" type="button" onclick="goto('home')" aria-label="Till förstasidan">
@@ -825,17 +846,50 @@
 <main class="page" id="app">
   <!-- Visas bara om JS inte körs (t.ex. OneDrive-förhandsgranskning). När JS körs
        ersätts hela innehållet i #app av route() omedelbart vid sidladdning. -->
-  <div class="preview-fallback">
-    <div class="preview-fallback-icon">↖</div>
-    <h2>Ladda ner filen för att starta verktyget</h2>
-    <p>För att använda appen ladda ner den. <strong>Förhandsgranskningen</strong> kan inte köra den.</p>
-    <p>Klicka på <strong>Ladda ner-ikonen</strong> (pilen som pekar nedåt) <strong>längst uppe till vänster</strong>. Filen sparas hos dig — öppna den därifrån så fungerar verktyget i webbläsaren.</p>
+  <div class="preview-fallback" aria-busy="true" aria-label="Hämtar innehåll">
+    <span class="sk sk-rad sk-hero"></span>
+    <span class="sk sk-rad sk-sub"></span>
+    <div class="sk-grid">
+      <div class="sk-kort"><span class="sk sk-rad" style="width:62%"></span>
+        <span class="sk sk-rad sk-liten" style="width:88%"></span>
+        <span class="sk sk-tal"></span></div>
+      <div class="sk-kort"><span class="sk sk-rad" style="width:62%"></span>
+        <span class="sk sk-rad sk-liten" style="width:88%"></span>
+        <span class="sk sk-tal"></span></div>
+      <div class="sk-kort"><span class="sk sk-rad" style="width:62%"></span>
+        <span class="sk sk-rad sk-liten" style="width:88%"></span>
+        <span class="sk sk-tal"></span></div>
+      <div class="sk-kort"><span class="sk sk-rad" style="width:62%"></span>
+        <span class="sk sk-rad sk-liten" style="width:88%"></span>
+        <span class="sk sk-tal"></span></div>
+    </div>
+    <noscript><p class="sk-noscript">Verktyget behöver JavaScript. Slå på det i webbläsaren och ladda om sidan.</p></noscript>
   </div>
+  <style>
+    .preview-fallback{padding:.5rem 0 2rem;
+      /* sk-trosk: skelettet visas forst efter 400 ms. Gar laddningen
+         snabbare hinner route() byta ut innehallet och man ser det aldrig. */
+      opacity:0;animation:sk-trosk 0s linear 400ms forwards}
+    @keyframes sk-trosk{to{opacity:1}}
+    .sk{display:block;border-radius:4px;background:#e8edf2;
+        background-image:linear-gradient(90deg,#e8edf2 0%,#f4f7fa 50%,#e8edf2 100%);
+        background-size:200% 100%;animation:sk-svep 1.5s linear infinite}
+    .sk-rad{height:1.1rem;margin-bottom:.6rem}
+    .sk-hero{height:2rem;width:48%;margin-bottom:.9rem}
+    .sk-sub{width:64%;height:.95rem;margin-bottom:2rem}
+    .sk-liten{height:.85rem}
+    .sk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(15rem,1fr));gap:1rem}
+    .sk-kort{border:1px solid #e2e8ef;border-radius:8px;padding:1.15rem}
+    .sk-tal{display:block;height:2.2rem;width:45%;margin-top:1.4rem;border-radius:4px;background:#eef2f6}
+    .sk-noscript{color:#61707f}
+    @keyframes sk-svep{to{background-position:-200% 0}}
+    @media (prefers-reduced-motion:reduce){.sk{animation:none}}
+  </style>
 </main>
 
 <div class="modal-backdrop" id="export-modal" onclick="if(event.target===this)closeExportModal()">
-  <div class="modal modal-archive">
-    <h2>Senast fixade sidor</h2>
+  <div class="modal modal-archive" role="dialog" aria-modal="true" aria-labelledby="modal-rubrik">
+    <h2 id="modal-rubrik">Senast fixade sidor</h2>
     <p class="modal-count" id="modal-count">0 sidor markerade som klara</p>
     <div class="archive-list" id="archive-list">
       <p class="archive-empty">Inga sidor är markerade som klara ännu.</p>
@@ -843,14 +897,19 @@
     <div class="modal-buttons">
       <button class="btn btn-secondary" type="button" onclick="closeExportModal()">Stäng</button>
       <button class="btn btn-outline" type="button" onclick="doExport()">Exportera lista</button>
+      <button class="btn btn-outline" type="button" onclick="doExportCsv()">Alla fel (CSV)</button>
+      <button class="btn btn-primary" type="button" onclick="doRapport()">Skapa rapport</button>
     </div>
   </div>
 </div>
 
-<div class="toast" id="toast"></div>
+<div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
 
 <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
+<script src="src/arbetsfil.js"></script>
+<script src="src/export.js"></script>
+<script src="src/rapport.js"></script>
 <script>
 const FORV_LIST = [
   { id: "familje", name: "Familjeförvaltningen", desc: "Socialtjänst, skola, kultur" },
@@ -1164,6 +1223,7 @@ function renderPageList(fvid, vkid, group) {
     groupPages = all;
     groupTitle = "Alla sidor"; groupIcon = "";
   }
+  if (sokfras) groupPages = sok(groupPages, sokfras, doneState, showDone);
   const ejKlara = groupPages.filter(p => !isDone(p.url));
   const klara = groupPages.filter(p => isDone(p.url));
   const visiblePages = showDone ? groupPages : ejKlara;
@@ -1222,6 +1282,13 @@ function renderPageList(fvid, vkid, group) {
     <div class="breadcrumb">${crumb}</div>
     <h1 class="section-title">${groupIcon ? `<span style="color:var(--akut);">${groupIcon}</span> ` : ""}${escapeHTML(groupTitle)}</h1>
     <p class="section-sub">${subText}</p>
+    <div class="sokrad">
+      <label class="sr-only" for="sokfalt">Sök bland sidorna</label>
+      <input id="sokfalt" type="search" class="sokfalt" placeholder="Sök sida, adress eller feltext…"
+             value="${escapeHTML(sokfras)}" oninput="sokAndrad(this.value)" autocomplete="off">
+      ${sokfras ? `<button class="linkbtn" type="button" onclick="rensaSok()">Rensa</button>` : ""}
+    </div>
+    ${sokfras ? `<p class="sokresultat" role="status">${groupPages.length} ${groupPages.length === 1 ? "sida matchar" : "sidor matchar"} ”${escapeHTML(sokfras)}”</p>` : ""}
     ${klara.length > 0 ? `<div class="list-controls">
       <label><input type="checkbox" ${showDone ? "checked" : ""} onchange="toggleShowDone()"/>Visa även klara (${klara.length})</label>
     </div>` : ""}
@@ -1230,6 +1297,27 @@ function renderPageList(fvid, vkid, group) {
 }
 
 window.toggleShowDone = function() { showDone = !showDone; route(); };
+
+let sokfras = "";
+let sokTimer = null;
+
+/* Ritar om listan 200 ms efter sista tangenttryckning och satter tillbaka
+ * markoren, eftersom route() byter ut hela innehallet i #app. */
+window.sokAndrad = function(varde) {
+  sokfras = varde;
+  clearTimeout(sokTimer);
+  sokTimer = setTimeout(function () {
+    route();
+    const f = document.getElementById("sokfalt");
+    if (f) { f.focus(); f.setSelectionRange(f.value.length, f.value.length); }
+  }, 200);
+};
+window.rensaSok = function() {
+  sokfras = "";
+  route();
+  const f = document.getElementById("sokfalt");
+  if (f) f.focus();
+};
 
 function renderPageWork(url, group) {
   const pg = PAGES.find(p => p.url === url);
@@ -1338,7 +1426,7 @@ function renderInfo() {
     <div class="info-section">
       <h2>Hur hittades felen?</h2>
       <p>Sidorna på sjobo.se granskades i flera omgångar under maj 2026. En automatisk genomsökning identifierade kandidater till språkfel – stavfel, inkonsekvenser, föråldrad terminologi och liknande. Sedan gick varje träff genom manuell granskning där falska positiva sållades bort och felen bedömdes och kategoriserades.</p>
-      <p>Av 495 granskade sidor hade 458 minst ett språkfel – totalt 1847 fel.</p>
+      <p>Datasetet omfattar 377 sidor med sammanlagt 1847 språkfel.</p>
     </div>
 
     <div class="info-section">
@@ -1372,7 +1460,7 @@ function renderInfo() {
         <li>Öppna sidan på sjobo.se via knappen och fixa felen i SiteVision.</li>
         <li>Klicka "Markera klar" – nästa sida öppnas automatiskt.</li>
       </ol>
-      <p class="info-aside">Framstegen sparas automatiskt på din egen dator. Dina markeringar visas inte för kollegorna och deras visas inte för dig — ni jobbar parallellt, var och en i sin förvaltning.</p>
+      <p class="info-aside">Framstegen sparas gemensamt. När du markerar en sida som klar ser dina kollegor det också — ni arbetar i samma lista, var och en i sin förvaltning.</p>
     </div>
 
     <div class="info-back">
@@ -1413,10 +1501,48 @@ window.openExportModal = function() {
       </div>`;
     }).join("");
   }
+  sistaFokus = document.activeElement;
   modal.classList.add("show");
+  const forsta = modal.querySelector("button");
+  if (forsta) forsta.focus();
 };
+let sistaFokus = null;
+
+/* Halller tangentbordsfokus kvar i dialogen sa lange den ar oppen. */
+function fangaFokus(e) {
+  const m = document.getElementById("export-modal");
+  if (!m.classList.contains("show") || e.key !== "Tab") return;
+  const kan = m.querySelectorAll("button, [href], input, select, textarea");
+  if (kan.length === 0) return;
+  const forst = kan[0], sist = kan[kan.length - 1];
+  if (e.shiftKey && document.activeElement === forst) { e.preventDefault(); sist.focus(); }
+  else if (!e.shiftKey && document.activeElement === sist) { e.preventDefault(); forst.focus(); }
+}
+document.addEventListener("keydown", fangaFokus);
+
 window.closeExportModal = function() {
   document.getElementById("export-modal").classList.remove("show");
+  if (sistaFokus) { sistaFokus.focus(); sistaFokus = null; }
+};
+window.doExportCsv = function() {
+  try {
+    const csv = tillCsv(PAGES, doneState);
+    laddaNer(filnamnMedDatum("sjobo-sprakfel", "csv"), csv, "text/csv");
+    showToast("\u2713 CSV sparad \u2014 \u00f6ppna den i Excel");
+  } catch (e) {
+    console.error(e);
+    showToast("Kunde inte skapa CSV", true);
+  }
+};
+window.doRapport = function() {
+  try {
+    const html = byggRapport(PAGES, doneState, DATASET_META);
+    laddaNer(filnamnMedDatum("sjobo-rapport", "html"), html, "text/html");
+    showToast("\u2713 Rapport sparad \u2014 \u00f6ppna den i webbl\u00e4saren");
+  } catch (e) {
+    console.error(e);
+    showToast("Kunde inte skapa rapporten", true);
+  }
 };
 window.doExport = function() {
   const data = {
@@ -1477,18 +1603,36 @@ window.undoDone = async function(urlEnc) {
   route();
 };
 
+const scrollMinne = {};
+let forraHash = location.hash.replace(/^#/, "");
+
+function sparaScroll() {
+  scrollMinne[forraHash] = window.scrollY;
+}
+
+/* Aterstaller scrollpositionen for en vy man varit pa forut, annars toppen.
+ * Kors i nasta frame sa att webblasaren hunnit rita det nya innehallet. */
+function aterstallScroll(hash) {
+  const y = scrollMinne[hash];
+  requestAnimationFrame(function () {
+    window.scrollTo({ top: typeof y === "number" ? y : 0 });
+  });
+  forraHash = hash;
+}
+
 function route() {
+  sparaScroll();
   const app = document.getElementById("app");
   const hash = location.hash.replace(/^#/, "");
   const parts = hash.split("/").filter(Boolean);
   const isLanding = parts.length === 0 || (parts.length === 1 && parts[0] === "home");
-  if (isLanding) { app.innerHTML = renderLanding(); window.scrollTo({ top: 0 }); return; }
-  if (parts[0] === "info") { app.innerHTML = renderInfo(); window.scrollTo({ top: 0 }); return; }
+  if (isLanding) { app.innerHTML = renderLanding(); aterstallScroll(hash); return; }
+  if (parts[0] === "info") { app.innerHTML = renderInfo(); aterstallScroll(hash); return; }
   if (parts[0] === "page" && parts.length >= 2) {
     const url = decodeURIComponent(parts[1]);
     const group = ["akut","ovriga","alla"].includes(parts[2]) ? parts[2] : "alla";
     app.innerHTML = renderPageWork(url, group);
-    window.scrollTo({ top: 0 });
+    aterstallScroll(hash);
     return;
   }
   if (parts[0] === "forv" && parts.length >= 2) {
@@ -1498,19 +1642,19 @@ function route() {
     if (parts.length === 2) {
       if (fvid === "familje") app.innerHTML = renderFamiljeHub();
       else app.innerHTML = renderGroupHub(fvid, null);
-      window.scrollTo({ top: 0 });
+      aterstallScroll(hash);
       return;
     }
     if (parts.length === 3) {
       const arg = parts[2];
       if (["akut","ovriga","alla"].includes(arg)) {
         app.innerHTML = renderPageList(fvid, null, arg);
-        window.scrollTo({ top: 0 });
+        aterstallScroll(hash);
         return;
       }
       if (fvid === "familje" && VERKS_LIST.some(v => v.id === arg)) {
         app.innerHTML = renderGroupHub(fvid, arg);
-        window.scrollTo({ top: 0 });
+        aterstallScroll(hash);
         return;
       }
     }
@@ -1519,7 +1663,7 @@ function route() {
       const group = parts[3];
       if (VERKS_LIST.some(v => v.id === vkid) && ["akut","ovriga","alla"].includes(group)) {
         app.innerHTML = renderPageList(fvid, vkid, group);
-        window.scrollTo({ top: 0 });
+        aterstallScroll(hash);
         return;
       }
     }
