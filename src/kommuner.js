@@ -1,77 +1,360 @@
-// kommuner.js — multikommun-stöd (planens Batch 6, ditt mål B)
-//
-// Bygger på Fas 1:s dataseparering. När DATA ligger i data/<kommun>.json blir
-// "flera kommuner" bara "flera filer + en väljare". Denna modul sköter:
-//   - vilka kommuner som finns (ett register)
-//   - att ladda rätt datafil
-//   - att hålla status åtskild per kommun (Firestore-collection per kommun)
-//
-// Ingen DOM. Rena funktioner + en laddare. Testbar.
-
-/**
- * Kommunregister. Lägg till en kommun = lägg till en rad + en datafil.
- * (Kan senare flyttas till Firestore som tenants/, men börjar som en fil
- * enligt P1 — minimal struktur först.)
+/* kommuner.js — register over Sveriges 290 kommuner
+ *
+ * Genererad 2026-08-10 ur SKR:s oppna kommundata. Varje doman ar verifierad;
+ * url-faltet innehaller den variant som faktiskt svarade (vissa kommuner
+ * kraver www., andra inte).
+ *
+ * kod = officiell kommunkod (SCB). Anvand den som nyckel, inte namnet.
+ * Laddas som vanlig <script> och definierar globala funktioner.
  */
-export const KOMMUNER = [
-  { id: 'sjobo',  namn: 'Sjöbo kommun',  domän: 'sjobo.se',  datafil: 'data/sjobo.json' }
-  // { id: 'ystad', namn: 'Ystads kommun', domän: 'ystad.se', datafil: 'data/ystad.json' },
-  // { id: 'tomelilla', namn: 'Tomelilla kommun', domän: 'tomelilla.se', datafil: 'data/tomelilla.json' },
+
+var KOMMUNER = [
+  { id: "ale", kod: "1440", namn: "Ale", doman: "ale.se", url: "https://www.ale.se/", ton: "hsl(0 42% 32%)" },
+  { id: "alingsas", kod: "1489", namn: "Alingsås", doman: "alingsas.se", url: "https://www.alingsas.se/", ton: "hsl(233 42% 32%)" },
+  { id: "alvesta", kod: "764", namn: "Alvesta", doman: "alvesta.se", url: "https://www.alvesta.se/", ton: "hsl(268 42% 32%)" },
+  { id: "aneby", kod: "604", namn: "Aneby", doman: "aneby.se", url: "https://www.aneby.se/", ton: "hsl(308 42% 32%)" },
+  { id: "arboga", kod: "1984", namn: "Arboga", doman: "arboga.se", url: "https://www.arboga.se/", ton: "hsl(8 42% 32%)" },
+  { id: "arjeplog", kod: "2506", namn: "Arjeplog", doman: "arjeplog.se", url: "https://www.arjeplog.se/", ton: "hsl(242 42% 32%)" },
+  { id: "arvidsjaur", kod: "2505", namn: "Arvidsjaur", doman: "arvidsjaur.se", url: "https://www.arvidsjaur.se/", ton: "hsl(105 42% 32%)" },
+  { id: "arvika", kod: "1784", namn: "Arvika", doman: "arvika.se", url: "https://www.arvika.se/", ton: "hsl(328 42% 32%)" },
+  { id: "askersund", kod: "1882", namn: "Askersund", doman: "askersund.se", url: "https://www.askersund.se/", ton: "hsl(74 42% 32%)" },
+  { id: "avesta", kod: "2084", namn: "Avesta", doman: "avesta.se", url: "https://www.avesta.se/", ton: "hsl(28 42% 32%)" },
+  { id: "bengtsfors", kod: "1460", namn: "Bengtsfors", doman: "bengtsfors.se", url: "https://www.bengtsfors.se/", ton: "hsl(220 42% 32%)" },
+  { id: "berg", kod: "2326", namn: "Berg", doman: "berg.se", url: "https://www.berg.se/", ton: "hsl(62 42% 32%)" },
+  { id: "bjurholm", kod: "2403", namn: "Bjurholm", doman: "bjurholm.se", url: "https://www.bjurholm.se/", ton: "hsl(171 42% 32%)" },
+  { id: "bjuv", kod: "1260", namn: "Bjuv", doman: "bjuv.se", url: "https://www.bjuv.se/", ton: "hsl(180 42% 32%)" },
+  { id: "boden", kod: "2582", namn: "Boden", doman: "boden.se", url: "https://www.boden.se/", ton: "hsl(214 42% 32%)" },
+  { id: "bollebygd", kod: "1443", namn: "Bollebygd", doman: "bollebygd.se", url: "https://www.bollebygd.se/", ton: "hsl(51 42% 32%)" },
+  { id: "bollnas", kod: "2183", namn: "Bollnäs", doman: "bollnas.se", url: "https://www.bollnas.se/", ton: "hsl(271 42% 32%)" },
+  { id: "borgholm", kod: "885", namn: "Borgholm", doman: "borgholm.se", url: "https://www.borgholm.se/", ton: "hsl(285 42% 32%)" },
+  { id: "borlange", kod: "2081", namn: "Borlänge", doman: "borlange.se", url: "https://www.borlange.se/", ton: "hsl(337 42% 32%)" },
+  { id: "boras", kod: "1490", namn: "Borås", doman: "boras.se", url: "https://www.boras.se/", ton: "hsl(10 42% 32%)" },
+  { id: "botkyrka", kod: "127", namn: "Botkyrka", doman: "botkyrka.se", url: "https://www.botkyrka.se/", ton: "hsl(119 42% 32%)" },
+  { id: "boxholm", kod: "560", namn: "Boxholm", doman: "boxholm.se", url: "https://www.boxholm.se/", ton: "hsl(40 42% 32%)" },
+  { id: "bromolla", kod: "1272", namn: "Bromölla", doman: "bromolla.se", url: "https://www.bromolla.se/", ton: "hsl(24 42% 32%)" },
+  { id: "bracke", kod: "2305", namn: "Bräcke", doman: "bracke.se", url: "https://www.bracke.se/", ton: "hsl(65 42% 32%)" },
+  { id: "burlov", kod: "1231", namn: "Burlöv", doman: "burlov.se", url: "https://www.burlov.se/", ton: "hsl(167 42% 32%)" },
+  { id: "bastad", kod: "1278", namn: "Båstad", doman: "bastad.se", url: "https://www.bastad.se/", ton: "hsl(126 42% 32%)" },
+  { id: "dalsed", kod: "1438", namn: "Dals-Ed", doman: "dalsed.se", url: "https://www.dalsed.se/", ton: "hsl(86 42% 32%)" },
+  { id: "danderyd", kod: "162", namn: "Danderyd", doman: "danderyd.se", url: "https://www.danderyd.se/", ton: "hsl(234 42% 32%)" },
+  { id: "degerfors", kod: "1862", namn: "Degerfors", doman: "degerfors.se", url: "https://www.degerfors.se/", ton: "hsl(214 42% 32%)" },
+  { id: "dorotea", kod: "2425", namn: "Dorotea", doman: "dorotea.se", url: "https://www.dorotea.se/", ton: "hsl(305 42% 32%)" },
+  { id: "eda", kod: "1730", namn: "Eda", doman: "eda.se", url: "https://www.eda.se/", ton: "hsl(130 42% 32%)" },
+  { id: "ekero", kod: "125", namn: "Ekerö", doman: "ekero.se", url: "https://www.ekero.se/", ton: "hsl(205 42% 32%)" },
+  { id: "eksjo", kod: "686", namn: "Eksjö", doman: "eksjo.se", url: "https://www.eksjo.se/", ton: "hsl(22 42% 32%)" },
+  { id: "emmaboda", kod: "862", namn: "Emmaboda", doman: "emmaboda.se", url: "https://www.emmaboda.se/", ton: "hsl(14 42% 32%)" },
+  { id: "enkoping", kod: "381", namn: "Enköping", doman: "enkoping.se", url: "https://enkoping.se/", ton: "hsl(357 42% 32%)" },
+  { id: "eskilstuna", kod: "484", namn: "Eskilstuna", doman: "eskilstuna.se", url: "https://www.eskilstuna.se/", ton: "hsl(68 42% 32%)" },
+  { id: "eslov", kod: "1285", namn: "Eslöv", doman: "eslov.se", url: "https://www.eslov.se/", ton: "hsl(5 42% 32%)" },
+  { id: "essunga", kod: "1445", namn: "Essunga", doman: "essunga.se", url: "https://www.essunga.se/", ton: "hsl(325 42% 32%)" },
+  { id: "fagersta", kod: "1982", namn: "Fagersta", doman: "fagersta.se", url: "https://www.fagersta.se/", ton: "hsl(94 42% 32%)" },
+  { id: "falkenberg", kod: "1382", namn: "Falkenberg", doman: "falkenberg.se", url: "https://www.falkenberg.se/", ton: "hsl(334 42% 32%)" },
+  { id: "falkoping", kod: "1499", namn: "Falköping", doman: "falkoping.se", url: "https://www.falkoping.se/", ton: "hsl(163 42% 32%)" },
+  { id: "falun", kod: "2080", namn: "Falun", doman: "falun.se", url: "https://www.falun.se/", ton: "hsl(200 42% 32%)" },
+  { id: "filipstad", kod: "1782", namn: "Filipstad", doman: "filipstad.se", url: "https://www.filipstad.se/", ton: "hsl(54 42% 32%)" },
+  { id: "finspang", kod: "562", namn: "Finspång", doman: "finspang.se", url: "https://www.finspang.se/", ton: "hsl(314 42% 32%)" },
+  { id: "flen", kod: "482", namn: "Flen", doman: "flen.se", url: "https://www.flen.se/", ton: "hsl(154 42% 32%)" },
+  { id: "forshaga", kod: "1763", namn: "Forshaga", doman: "forshaga.se", url: "https://www.forshaga.se/", ton: "hsl(331 42% 32%)" },
+  { id: "fargelanda", kod: "1439", namn: "Färgelanda", doman: "fargelanda.se", url: "https://www.fargelanda.se/", ton: "hsl(223 42% 32%)" },
+  { id: "gagnef", kod: "2026", namn: "Gagnef", doman: "gagnef.se", url: "https://www.gagnef.se/", ton: "hsl(2 42% 32%)" },
+  { id: "gislaved", kod: "662", namn: "Gislaved", doman: "gislaved.se", url: "https://gislaved.se/", ton: "hsl(334 42% 32%)" },
+  { id: "gnesta", kod: "461", namn: "Gnesta", doman: "gnesta.se", url: "https://www.gnesta.se/", ton: "hsl(157 42% 32%)" },
+  { id: "gnosjo", kod: "617", namn: "Gnosjö", doman: "gnosjo.se", url: "https://gnosjo.se/", ton: "hsl(289 42% 32%)" },
+  { id: "gotland", kod: "980", namn: "Gotland", doman: "gotland.se", url: "https://gotland.se/", ton: "hsl(340 42% 32%)" },
+  { id: "grums", kod: "1764", namn: "Grums", doman: "grums.se", url: "https://www.grums.se/", ton: "hsl(108 42% 32%)" },
+  { id: "grastorp", kod: "1444", namn: "Grästorp", doman: "grastorp.se", url: "https://www.grastorp.se/", ton: "hsl(188 42% 32%)" },
+  { id: "gullspang", kod: "1447", namn: "Gullspång", doman: "gullspang.se", url: "https://www.gullspang.se/", ton: "hsl(239 42% 32%)" },
+  { id: "gallivare", kod: "2523", namn: "Gällivare", doman: "gallivare.se", url: "https://www.gallivare.se/", ton: "hsl(51 42% 32%)" },
+  { id: "gavle", kod: "2180", namn: "Gävle", doman: "gavle.se", url: "https://www.gavle.se/", ton: "hsl(220 42% 32%)" },
+  { id: "goteborg", kod: "1480", namn: "Göteborg", doman: "goteborg.se", url: "https://www.goteborg.se/", ton: "hsl(80 42% 32%)" },
+  { id: "gotene", kod: "1471", namn: "Götene", doman: "gotene.se", url: "https://www.gotene.se/", ton: "hsl(287 42% 32%)" },
+  { id: "habo", kod: "643", namn: "Habo", doman: "habo.se", url: "https://www.habo.se/", ton: "hsl(251 42% 32%)" },
+  { id: "hagfors", kod: "1783", namn: "Hagfors", doman: "hagfors.se", url: "https://www.hagfors.se/", ton: "hsl(191 42% 32%)" },
+  { id: "hallsberg", kod: "1861", namn: "Hallsberg", doman: "hallsberg.se", url: "https://www.hallsberg.se/", ton: "hsl(77 42% 32%)" },
+  { id: "hallstahammar", kod: "1961", namn: "Hallstahammar", doman: "hallstahammar.se", url: "https://www.hallstahammar.se/", ton: "hsl(97 42% 32%)" },
+  { id: "halmstad", kod: "1380", namn: "Halmstad", doman: "halmstad.se", url: "https://www.halmstad.se/", ton: "hsl(60 42% 32%)" },
+  { id: "hammaro", kod: "1761", namn: "Hammarö", doman: "hammaro.se", url: "https://www.hammaro.se/", ton: "hsl(57 42% 32%)" },
+  { id: "haninge", kod: "136", namn: "Haninge", doman: "haninge.se", url: "https://haninge.se/", ton: "hsl(272 42% 32%)" },
+  { id: "haparanda", kod: "2583", namn: "Haparanda", doman: "haparanda.se", url: "https://www.haparanda.se/", ton: "hsl(351 42% 32%)" },
+  { id: "heby", kod: "331", namn: "Heby", doman: "heby.se", url: "https://www.heby.se/", ton: "hsl(347 42% 32%)" },
+  { id: "hedemora", kod: "2083", namn: "Hedemora", doman: "hedemora.se", url: "https://www.hedemora.se/", ton: "hsl(251 42% 32%)" },
+  { id: "helsingborg", kod: "1283", namn: "Helsingborg", doman: "helsingborg.se", url: "https://www.helsingborg.se/", ton: "hsl(91 42% 32%)" },
+  { id: "herrljunga", kod: "1466", namn: "Herrljunga", doman: "herrljunga.se", url: "https://www.herrljunga.se/", ton: "hsl(322 42% 32%)" },
+  { id: "hjo", kod: "1497", namn: "Hjo", doman: "hjo.se", url: "https://www.hjo.se/", ton: "hsl(249 42% 32%)" },
+  { id: "hofors", kod: "2104", namn: "Hofors", doman: "hofors.se", url: "https://www.hofors.se/", ton: "hsl(248 42% 32%)" },
+  { id: "huddinge", kod: "126", namn: "Huddinge", doman: "huddinge.se", url: "https://www.huddinge.se/", ton: "hsl(342 42% 32%)" },
+  { id: "hudiksvall", kod: "2184", namn: "Hudiksvall", doman: "hudiksvall.se", url: "https://www.hudiksvall.se/", ton: "hsl(48 42% 32%)" },
+  { id: "hultsfred", kod: "860", namn: "Hultsfred", doman: "hultsfred.se", url: "https://www.hultsfred.se/", ton: "hsl(100 42% 32%)" },
+  { id: "hylte", kod: "1315", namn: "Hylte", doman: "hylte.se", url: "https://www.hylte.se/", ton: "hsl(155 42% 32%)" },
+  { id: "hallefors", kod: "1863", namn: "Hällefors", doman: "hallefors.se", url: "https://hallefors.se/", ton: "hsl(351 42% 32%)" },
+  { id: "harjedalen", kod: "2361", namn: "Härjedalen", doman: "harjedalen.se", url: "https://www.harjedalen.se/", ton: "hsl(177 42% 32%)" },
+  { id: "harnosand", kod: "2280", namn: "Härnösand", doman: "harnosand.se", url: "https://www.harnosand.se/", ton: "hsl(240 42% 32%)" },
+  { id: "harryda", kod: "1401", namn: "Härryda", doman: "harryda.se", url: "https://www.harryda.se/", ton: "hsl(57 42% 32%)" },
+  { id: "hassleholm", kod: "1293", namn: "Hässleholm", doman: "hassleholm.se", url: "https://www.hassleholm.se/", ton: "hsl(21 42% 32%)" },
+  { id: "habo", kod: "305", namn: "Håbo", doman: "habo.se", url: "https://www.habo.se/", ton: "hsl(25 42% 32%)" },
+  { id: "hoganas", kod: "1284", namn: "Höganäs", doman: "hoganas.se", url: "https://www.hoganas.se/", ton: "hsl(228 42% 32%)" },
+  { id: "hogsby", kod: "821", namn: "Högsby", doman: "hogsby.se", url: "https://www.hogsby.se/", ton: "hsl(157 42% 32%)" },
+  { id: "horby", kod: "1266", namn: "Hörby", doman: "horby.se", url: "https://www.horby.se/", ton: "hsl(282 42% 32%)" },
+  { id: "hoor", kod: "1267", namn: "Höör", doman: "hoor.se", url: "https://www.hoor.se/", ton: "hsl(59 42% 32%)" },
+  { id: "jokkmokk", kod: "2510", namn: "Jokkmokk", doman: "jokkmokk.se", url: "https://www.jokkmokk.se/", ton: "hsl(70 42% 32%)" },
+  { id: "jarfalla", kod: "123", namn: "Järfälla", doman: "jarfalla.se", url: "https://www.jarfalla.se/", ton: "hsl(291 42% 32%)" },
+  { id: "jonkoping", kod: "680", namn: "Jönköping", doman: "jonkoping.se", url: "https://www.jonkoping.se/", ton: "hsl(280 42% 32%)" },
+  { id: "kalix", kod: "2514", namn: "Kalix", doman: "kalix.se", url: "https://www.kalix.se/", ton: "hsl(258 42% 32%)" },
+  { id: "kalmar", kod: "880", namn: "Kalmar", doman: "kalmar.se", url: "https://www.kalmar.se/", ton: "hsl(320 42% 32%)" },
+  { id: "karlsborg", kod: "1446", namn: "Karlsborg", doman: "karlsborg.se", url: "https://www.karlsborg.se/", ton: "hsl(102 42% 32%)" },
+  { id: "karlshamn", kod: "1082", namn: "Karlshamn", doman: "karlshamn.se", url: "https://www.karlshamn.se/", ton: "hsl(274 42% 32%)" },
+  { id: "karlskoga", kod: "1883", namn: "Karlskoga", doman: "karlskoga.se", url: "https://www.karlskoga.se/", ton: "hsl(211 42% 32%)" },
+  { id: "karlskrona", kod: "1080", namn: "Karlskrona", doman: "karlskrona.se", url: "https://www.karlskrona.se/", ton: "hsl(0 42% 32%)" },
+  { id: "karlstad", kod: "1780", namn: "Karlstad", doman: "karlstad.se", url: "https://www.karlstad.se/", ton: "hsl(140 42% 32%)" },
+  { id: "katrineholm", kod: "483", namn: "Katrineholm", doman: "katrineholm.se", url: "https://katrineholm.se/", ton: "hsl(291 42% 32%)" },
+  { id: "kil", kod: "1715", namn: "Kil", doman: "kil.se", url: "https://www.kil.se/", ton: "hsl(235 42% 32%)" },
+  { id: "kinda", kod: "513", namn: "Kinda", doman: "kinda.se", url: "https://kinda.se/", ton: "hsl(81 42% 32%)" },
+  { id: "kiruna", kod: "2584", namn: "Kiruna", doman: "kiruna.se", url: "https://www.kiruna.se/", ton: "hsl(128 42% 32%)" },
+  { id: "klippan", kod: "1276", namn: "Klippan", doman: "klippan.se", url: "https://www.klippan.se/", ton: "hsl(212 42% 32%)" },
+  { id: "knivsta", kod: "330", namn: "Knivsta", doman: "knivsta.se", url: "https://www.knivsta.se/", ton: "hsl(210 42% 32%)" },
+  { id: "kramfors", kod: "2282", namn: "Kramfors", doman: "kramfors.se", url: "https://www.kramfors.se/", ton: "hsl(154 42% 32%)" },
+  { id: "kristianstad", kod: "1290", namn: "Kristianstad", doman: "kristianstad.se", url: "https://www.kristianstad.se/", ton: "hsl(330 42% 32%)" },
+  { id: "kristinehamn", kod: "1781", namn: "Kristinehamn", doman: "kristinehamn.se", url: "https://www.kristinehamn.se/", ton: "hsl(277 42% 32%)" },
+  { id: "krokom", kod: "2309", namn: "Krokom", doman: "krokom.se", url: "https://www.krokom.se/", ton: "hsl(253 42% 32%)" },
+  { id: "kumla", kod: "1881", namn: "Kumla", doman: "kumla.se", url: "https://www.kumla.se/", ton: "hsl(297 42% 32%)" },
+  { id: "kungsbacka", kod: "1384", namn: "Kungsbacka", doman: "kungsbacka.se", url: "https://www.kungsbacka.se/", ton: "hsl(248 42% 32%)" },
+  { id: "kungsor", kod: "1960", namn: "Kungsör", doman: "kungsor.se", url: "https://www.kungsor.se/", ton: "hsl(320 42% 32%)" },
+  { id: "kungalv", kod: "1482", namn: "Kungälv", doman: "kungalv.se", url: "https://www.kungalv.se/", ton: "hsl(354 42% 32%)" },
+  { id: "kavlinge", kod: "1261", namn: "Kävlinge", doman: "kavlinge.se", url: "https://www.kavlinge.se/", ton: "hsl(317 42% 32%)" },
+  { id: "koping", kod: "1983", namn: "Köping", doman: "koping.se", url: "https://www.koping.se/", ton: "hsl(231 42% 32%)" },
+  { id: "laholm", kod: "1381", namn: "Laholm", doman: "laholm.se", url: "https://www.laholm.se/", ton: "hsl(197 42% 32%)" },
+  { id: "landskrona", kod: "1282", namn: "Landskrona", doman: "landskrona.se", url: "https://www.landskrona.se/", ton: "hsl(314 42% 32%)" },
+  { id: "laxa", kod: "1860", namn: "Laxå", doman: "laxa.se", url: "https://www.laxa.se/", ton: "hsl(300 42% 32%)" },
+  { id: "lekeberg", kod: "1814", namn: "Lekeberg", doman: "lekeberg.se", url: "https://www.lekeberg.se/", ton: "hsl(118 42% 32%)" },
+  { id: "leksand", kod: "2029", namn: "Leksand", doman: "leksand.se", url: "https://www.leksand.se/", ton: "hsl(53 42% 32%)" },
+  { id: "lerum", kod: "1441", namn: "Lerum", doman: "lerum.se", url: "https://www.lerum.se/", ton: "hsl(137 42% 32%)" },
+  { id: "lessebo", kod: "761", namn: "Lessebo", doman: "lessebo.se", url: "https://www.lessebo.se/", ton: "hsl(217 42% 32%)" },
+  { id: "lidingo", kod: "186", namn: "Lidingö", doman: "lidingo.se", url: "https://lidingo.se/", ton: "hsl(282 42% 32%)" },
+  { id: "lidkoping", kod: "1494", namn: "Lidköping", doman: "lidkoping.se", url: "https://www.lidkoping.se/", ton: "hsl(198 42% 32%)" },
+  { id: "lillaedet", kod: "1462", namn: "Lilla Edet", doman: "lillaedet.se", url: "https://www.lillaedet.se/", ton: "hsl(134 42% 32%)" },
+  { id: "lindesberg", kod: "1885", namn: "Lindesberg", doman: "lindesberg.se", url: "https://www.lindesberg.se/", ton: "hsl(125 42% 32%)" },
+  { id: "linkoping", kod: "580", namn: "Linköping", doman: "linkoping.se", url: "https://www.linkoping.se/", ton: "hsl(260 42% 32%)" },
+  { id: "ljungby", kod: "781", namn: "Ljungby", doman: "ljungby.se", url: "https://www.ljungby.se/", ton: "hsl(77 42% 32%)" },
+  { id: "ljusdal", kod: "2161", namn: "Ljusdal", doman: "ljusdal.se", url: "https://www.ljusdal.se/", ton: "hsl(137 42% 32%)" },
+  { id: "ljusnarsberg", kod: "1864", namn: "Ljusnarsberg", doman: "ljusnarsberg.se", url: "https://www.ljusnarsberg.se/", ton: "hsl(128 42% 32%)" },
+  { id: "lomma", kod: "1262", namn: "Lomma", doman: "lomma.se", url: "https://www.lomma.se/", ton: "hsl(94 42% 32%)" },
+  { id: "ludvika", kod: "2085", namn: "Ludvika", doman: "ludvika.se", url: "https://www.ludvika.se/", ton: "hsl(165 42% 32%)" },
+  { id: "lulea", kod: "2580", namn: "Luleå", doman: "lulea.se", url: "https://www.lulea.se/", ton: "hsl(300 42% 32%)" },
+  { id: "lund", kod: "1281", namn: "Lund", doman: "lund.se", url: "https://www.lund.se/", ton: "hsl(177 42% 32%)" },
+  { id: "lycksele", kod: "2481", namn: "Lycksele", doman: "lycksele.se", url: "https://www.lycksele.se/", ton: "hsl(57 42% 32%)" },
+  { id: "lysekil", kod: "1484", namn: "Lysekil", doman: "lysekil.se", url: "https://www.lysekil.se/", ton: "hsl(268 42% 32%)" },
+  { id: "malmo", kod: "1280", namn: "Malmö", doman: "malmo.se", url: "https://www.malmo.se/", ton: "hsl(40 42% 32%)" },
+  { id: "malungsalen", kod: "2023", namn: "Malung-Sälen", doman: "malungsalen.se", url: "https://www.malungsalen.se/", ton: "hsl(311 42% 32%)" },
+  { id: "mala", kod: "2418", namn: "Malå", doman: "mala.se", url: "https://www.mala.se/", ton: "hsl(66 42% 32%)" },
+  { id: "mariestad", kod: "1493", namn: "Mariestad", doman: "mariestad.se", url: "https://www.mariestad.se/", ton: "hsl(61 42% 32%)" },
+  { id: "mark", kod: "1463", namn: "Mark", doman: "mark.se", url: "https://www.mark.se/", ton: "hsl(271 42% 32%)" },
+  { id: "markaryd", kod: "767", namn: "Markaryd", doman: "markaryd.se", url: "https://www.markaryd.se/", ton: "hsl(319 42% 32%)" },
+  { id: "mellerud", kod: "1461", namn: "Mellerud", doman: "mellerud.se", url: "https://www.mellerud.se/", ton: "hsl(357 42% 32%)" },
+  { id: "mjolby", kod: "586", namn: "Mjölby", doman: "mjolby.se", url: "https://mjolby.se/", ton: "hsl(2 42% 32%)" },
+  { id: "mora", kod: "2062", namn: "Mora", doman: "mora.se", url: "https://www.mora.se/", ton: "hsl(254 42% 32%)" },
+  { id: "motala", kod: "583", namn: "Motala", doman: "motala.se", url: "https://www.motala.se/", ton: "hsl(311 42% 32%)" },
+  { id: "mullsjo", kod: "642", namn: "Mullsjö", doman: "mullsjo.se", url: "https://www.mullsjo.se/", ton: "hsl(114 42% 32%)" },
+  { id: "munkedal", kod: "1430", namn: "Munkedal", doman: "munkedal.se", url: "https://www.munkedal.se/", ton: "hsl(70 42% 32%)" },
+  { id: "munkfors", kod: "1762", namn: "Munkfors", doman: "munkfors.se", url: "https://www.munkfors.se/", ton: "hsl(194 42% 32%)" },
+  { id: "molndal", kod: "1481", namn: "Mölndal", doman: "molndal.se", url: "https://www.molndal.se/", ton: "hsl(217 42% 32%)" },
+  { id: "monsteras", kod: "861", namn: "Mönsterås", doman: "monsteras.se", url: "https://www.monsteras.se/", ton: "hsl(237 42% 32%)" },
+  { id: "morbylanga", kod: "840", namn: "Mörbylånga", doman: "morbylanga.se", url: "https://morbylanga.se/", ton: "hsl(240 42% 32%)" },
+  { id: "nacka", kod: "182", namn: "Nacka", doman: "nacka.se", url: "https://www.nacka.se/", ton: "hsl(94 42% 32%)" },
+  { id: "nora", kod: "1884", namn: "Nora", doman: "nora.se", url: "https://www.nora.se/", ton: "hsl(348 42% 32%)" },
+  { id: "norberg", kod: "1962", namn: "Norberg", doman: "norberg.se", url: "https://www.norberg.se/", ton: "hsl(234 42% 32%)" },
+  { id: "nordanstig", kod: "2132", namn: "Nordanstig", doman: "nordanstig.se", url: "https://www.nordanstig.se/", ton: "hsl(124 42% 32%)" },
+  { id: "nordmaling", kod: "2401", namn: "Nordmaling", doman: "nordmaling.se", url: "https://www.nordmaling.se/", ton: "hsl(257 42% 32%)" },
+  { id: "norrkoping", kod: "581", namn: "Norrköping", doman: "norrkoping.se", url: "https://norrkoping.se/", ton: "hsl(37 42% 32%)" },
+  { id: "norrtalje", kod: "188", namn: "Norrtälje", doman: "norrtalje.se", url: "https://www.norrtalje.se/", ton: "hsl(196 42% 32%)" },
+  { id: "norsjo", kod: "2417", namn: "Norsjö", doman: "norsjo.se", url: "https://www.norsjo.se/", ton: "hsl(289 42% 32%)" },
+  { id: "nybro", kod: "881", namn: "Nybro", doman: "nybro.se", url: "https://www.nybro.se/", ton: "hsl(97 42% 32%)" },
+  { id: "nykvarn", kod: "140", namn: "Nykvarn", doman: "nykvarn.se", url: "https://www.nykvarn.se/", ton: "hsl(100 42% 32%)" },
+  { id: "nykoping", kod: "480", namn: "Nyköping", doman: "nykoping.se", url: "https://www.nykoping.se/", ton: "hsl(240 42% 32%)" },
+  { id: "nynashamn", kod: "192", namn: "Nynäshamn", doman: "nynashamn.se", url: "https://www.nynashamn.se/", ton: "hsl(24 42% 32%)" },
+  { id: "nassjo", kod: "682", namn: "Nässjö", doman: "nassjo.se", url: "https://www.nassjo.se/", ton: "hsl(194 42% 32%)" },
+  { id: "ockelbo", kod: "2101", namn: "Ockelbo", doman: "ockelbo.se", url: "https://www.ockelbo.se/", ton: "hsl(197 42% 32%)" },
+  { id: "olofstrom", kod: "1060", namn: "Olofström", doman: "olofstrom.se", url: "https://olofstrom.se/", ton: "hsl(140 42% 32%)" },
+  { id: "orsa", kod: "2034", namn: "Orsa", doman: "orsa.se", url: "https://www.orsa.se/", ton: "hsl(18 42% 32%)" },
+  { id: "orust", kod: "1421", namn: "Orust", doman: "orust.se", url: "https://www.orust.se/", ton: "hsl(277 42% 32%)" },
+  { id: "osby", kod: "1273", namn: "Osby", doman: "osby.se", url: "https://www.osby.se/", ton: "hsl(161 42% 32%)" },
+  { id: "oskarshamn", kod: "882", namn: "Oskarshamn", doman: "oskarshamn.se", url: "https://www.oskarshamn.se/", ton: "hsl(234 42% 32%)" },
+  { id: "ovanaker", kod: "2121", namn: "Ovanåker", doman: "ovanaker.se", url: "https://www.ovanaker.se/", ton: "hsl(57 42% 32%)" },
+  { id: "oxelosund", kod: "481", namn: "Oxelösund", doman: "oxelosund.se", url: "https://oxelosund.se/", ton: "hsl(17 42% 32%)" },
+  { id: "pajala", kod: "2521", namn: "Pajala", doman: "pajala.se", url: "https://www.pajala.se/", ton: "hsl(137 42% 32%)" },
+  { id: "partille", kod: "1402", namn: "Partille", doman: "partille.se", url: "https://www.partille.se/", ton: "hsl(194 42% 32%)" },
+  { id: "perstorp", kod: "1275", namn: "Perstorp", doman: "perstorp.se", url: "https://www.perstorp.se/", ton: "hsl(75 42% 32%)" },
+  { id: "pitea", kod: "2581", namn: "Piteå", doman: "pitea.se", url: "https://www.pitea.se/", ton: "hsl(77 42% 32%)" },
+  { id: "ragunda", kod: "2303", namn: "Ragunda", doman: "ragunda.se", url: "https://www.ragunda.se/", ton: "hsl(151 42% 32%)" },
+  { id: "robertsfors", kod: "2409", namn: "Robertsfors", doman: "robertsfors.se", url: "https://www.robertsfors.se/", ton: "hsl(273 42% 32%)" },
+  { id: "ronneby", kod: "1081", namn: "Ronneby", doman: "ronneby.se", url: "https://www.ronneby.se/", ton: "hsl(137 42% 32%)" },
+  { id: "rattvik", kod: "2031", namn: "Rättvik", doman: "rattvik.se", url: "https://www.rattvik.se/", ton: "hsl(327 42% 32%)" },
+  { id: "sala", kod: "1981", namn: "Sala", doman: "sala.se", url: "https://www.sala.se/", ton: "hsl(317 42% 32%)" },
+  { id: "salem", kod: "128", namn: "Salem", doman: "salem.se", url: "https://www.salem.se/", ton: "hsl(256 42% 32%)" },
+  { id: "sandviken", kod: "2181", namn: "Sandviken", doman: "sandviken.se", url: "https://www.sandviken.se/", ton: "hsl(357 42% 32%)" },
+  { id: "sigtuna", kod: "191", namn: "Sigtuna", doman: "sigtuna.se", url: "https://www.sigtuna.se/", ton: "hsl(247 42% 32%)" },
+  { id: "simrishamn", kod: "1291", namn: "Simrishamn", doman: "simrishamn.se", url: "https://www.simrishamn.se/", ton: "hsl(107 42% 32%)" },
+  { id: "sjobo", kod: "1265", namn: "Sjöbo", doman: "sjobo.se", url: "https://www.sjobo.se/", ton: "hsl(145 42% 32%)" },
+  { id: "skara", kod: "1495", namn: "Skara", doman: "skara.se", url: "https://www.skara.se/", ton: "hsl(335 42% 32%)" },
+  { id: "skelleftea", kod: "2482", namn: "Skellefteå", doman: "skelleftea.se", url: "https://www.skelleftea.se/", ton: "hsl(194 42% 32%)" },
+  { id: "skinnskatteberg", kod: "1904", namn: "Skinnskatteberg", doman: "skinnskatteberg.se", url: "https://www.skinnskatteberg.se/", ton: "hsl(208 42% 32%)" },
+  { id: "skurup", kod: "1264", namn: "Skurup", doman: "skurup.se", url: "https://www.skurup.se/", ton: "hsl(8 42% 32%)" },
+  { id: "skovde", kod: "1496", namn: "Skövde", doman: "skovde.se", url: "https://www.skovde.se/", ton: "hsl(112 42% 32%)" },
+  { id: "smedjebacken", kod: "2061", namn: "Smedjebacken", doman: "smedjebacken.se", url: "https://www.smedjebacken.se/", ton: "hsl(117 42% 32%)" },
+  { id: "solleftea", kod: "2283", namn: "Sollefteå", doman: "solleftea.se", url: "https://www.solleftea.se/", ton: "hsl(291 42% 32%)" },
+  { id: "sollentuna", kod: "163", namn: "Sollentuna", doman: "sollentuna.se", url: "https://www.sollentuna.se/", ton: "hsl(11 42% 32%)" },
+  { id: "solna", kod: "184", namn: "Solna", doman: "solna.se", url: "https://www.solna.se/", ton: "hsl(8 42% 32%)" },
+  { id: "sorsele", kod: "2422", namn: "Sorsele", doman: "sorsele.se", url: "https://www.sorsele.se/", ton: "hsl(254 42% 32%)" },
+  { id: "sotenas", kod: "1427", namn: "Sotenäs", doman: "sotenas.se", url: "https://www.sotenas.se/", ton: "hsl(19 42% 32%)" },
+  { id: "staffanstorp", kod: "1230", namn: "Staffanstorp", doman: "staffanstorp.se", url: "https://www.staffanstorp.se/", ton: "hsl(30 42% 32%)" },
+  { id: "stenungsund", kod: "1415", namn: "Stenungsund", doman: "stenungsund.se", url: "https://www.stenungsund.se/", ton: "hsl(175 42% 32%)" },
+  { id: "stockholm", kod: "180", namn: "Stockholm", doman: "stockholm.se", url: "https://www.stockholm.se/", ton: "hsl(180 42% 32%)" },
+  { id: "storfors", kod: "1760", namn: "Storfors", doman: "storfors.se", url: "https://www.storfors.se/", ton: "hsl(280 42% 32%)" },
+  { id: "storuman", kod: "2421", namn: "Storuman", doman: "storuman.se", url: "https://www.storuman.se/", ton: "hsl(117 42% 32%)" },
+  { id: "strangnas", kod: "486", namn: "Strängnäs", doman: "strangnas.se", url: "https://www.strangnas.se/", ton: "hsl(342 42% 32%)" },
+  { id: "stromstad", kod: "1486", namn: "Strömstad", doman: "stromstad.se", url: "https://www.stromstad.se/", ton: "hsl(182 42% 32%)" },
+  { id: "stromsund", kod: "2313", namn: "Strömsund", doman: "stromsund.se", url: "https://www.stromsund.se/", ton: "hsl(81 42% 32%)" },
+  { id: "sundbyberg", kod: "183", namn: "Sundbyberg", doman: "sundbyberg.se", url: "https://www.sundbyberg.se/", ton: "hsl(231 42% 32%)" },
+  { id: "sundsvall", kod: "2281", namn: "Sundsvall", doman: "sundsvall.se", url: "https://www.sundsvall.se/", ton: "hsl(17 42% 32%)" },
+  { id: "sunne", kod: "1766", namn: "Sunne", doman: "sunne.se", url: "https://www.sunne.se/", ton: "hsl(22 42% 32%)" },
+  { id: "surahammar", kod: "1907", namn: "Surahammar", doman: "surahammar.se", url: "https://www.surahammar.se/", ton: "hsl(259 42% 32%)" },
+  { id: "svalov", kod: "1214", namn: "Svalöv", doman: "svalov.se", url: "https://www.svalov.se/", ton: "hsl(358 42% 32%)" },
+  { id: "svedala", kod: "1263", namn: "Svedala", doman: "svedala.se", url: "https://www.svedala.se/", ton: "hsl(231 42% 32%)" },
+  { id: "svenljunga", kod: "1465", namn: "Svenljunga", doman: "svenljunga.se", url: "https://www.svenljunga.se/", ton: "hsl(185 42% 32%)" },
+  { id: "saffle", kod: "1785", namn: "Säffle", doman: "saffle.se", url: "https://www.saffle.se/", ton: "hsl(105 42% 32%)" },
+  { id: "sater", kod: "2082", namn: "Säter", doman: "sater.se", url: "https://www.sater.se/", ton: "hsl(114 42% 32%)" },
+  { id: "savsjo", kod: "684", namn: "Sävsjö", doman: "savsjo.se", url: "https://www.savsjo.se/", ton: "hsl(108 42% 32%)" },
+  { id: "soderhamn", kod: "2182", namn: "Söderhamn", doman: "soderhamn.se", url: "https://www.soderhamn.se/", ton: "hsl(134 42% 32%)" },
+  { id: "soderkoping", kod: "582", namn: "Söderköping", doman: "soderkoping.se", url: "https://www.soderkoping.se/", ton: "hsl(174 42% 32%)" },
+  { id: "sodertalje", kod: "181", namn: "Södertälje", doman: "sodertalje.se", url: "https://www.sodertalje.se/", ton: "hsl(317 42% 32%)" },
+  { id: "solvesborg", kod: "1083", namn: "Sölvesborg", doman: "solvesborg.se", url: "https://www.solvesborg.se/", ton: "hsl(51 42% 32%)" },
+  { id: "tanum", kod: "1435", namn: "Tanum", doman: "tanum.se", url: "https://www.tanum.se/", ton: "hsl(35 42% 32%)" },
+  { id: "tibro", kod: "1472", namn: "Tibro", doman: "tibro.se", url: "https://www.tibro.se/", ton: "hsl(64 42% 32%)" },
+  { id: "tidaholm", kod: "1498", namn: "Tidaholm", doman: "tidaholm.se", url: "https://www.tidaholm.se/", ton: "hsl(26 42% 32%)" },
+  { id: "tierp", kod: "360", namn: "Tierp", doman: "tierp.se", url: "https://www.tierp.se/", ton: "hsl(0 42% 32%)" },
+  { id: "timra", kod: "2262", namn: "Timrå", doman: "timra.se", url: "https://www.timra.se/", ton: "hsl(294 42% 32%)" },
+  { id: "tingsryd", kod: "763", namn: "Tingsryd", doman: "tingsryd.se", url: "https://www.tingsryd.se/", ton: "hsl(131 42% 32%)" },
+  { id: "tjorn", kod: "1419", namn: "Tjörn", doman: "tjorn.se", url: "https://www.tjorn.se/", ton: "hsl(3 42% 32%)" },
+  { id: "tomelilla", kod: "1270", namn: "Tomelilla", doman: "tomelilla.se", url: "https://www.tomelilla.se/", ton: "hsl(110 42% 32%)" },
+  { id: "torsby", kod: "1737", namn: "Torsby", doman: "torsby.se", url: "https://www.torsby.se/", ton: "hsl(9 42% 32%)" },
+  { id: "torsas", kod: "834", namn: "Torsås", doman: "torsas.se", url: "https://www.torsas.se/", ton: "hsl(138 42% 32%)" },
+  { id: "tranemo", kod: "1452", namn: "Tranemo", doman: "tranemo.se", url: "https://www.tranemo.se/", ton: "hsl(204 42% 32%)" },
+  { id: "tranas", kod: "687", namn: "Tranås", doman: "tranas.se", url: "https://www.tranas.se/", ton: "hsl(159 42% 32%)" },
+  { id: "trelleborg", kod: "1287", namn: "Trelleborg", doman: "trelleborg.se", url: "https://www.trelleborg.se/", ton: "hsl(279 42% 32%)" },
+  { id: "trollhattan", kod: "1488", namn: "Trollhättan", doman: "trollhattan.se", url: "https://www.trollhattan.se/", ton: "hsl(96 42% 32%)" },
+  { id: "trosa", kod: "488", namn: "Trosa", doman: "trosa.se", url: "https://www.trosa.se/", ton: "hsl(256 42% 32%)" },
+  { id: "tyreso", kod: "138", namn: "Tyresö", doman: "tyreso.se", url: "https://www.tyreso.se/", ton: "hsl(186 42% 32%)" },
+  { id: "taby", kod: "160", namn: "Täby", doman: "taby.se", url: "https://www.taby.se/", ton: "hsl(320 42% 32%)" },
+  { id: "toreboda", kod: "1473", namn: "Töreboda", doman: "toreboda.se", url: "https://www.toreboda.se/", ton: "hsl(201 42% 32%)" },
+  { id: "uddevalla", kod: "1485", namn: "Uddevalla", doman: "uddevalla.se", url: "https://www.uddevalla.se/", ton: "hsl(45 42% 32%)" },
+  { id: "ulricehamn", kod: "1491", namn: "Ulricehamn", doman: "ulricehamn.se", url: "https://www.ulricehamn.se/", ton: "hsl(147 42% 32%)" },
+  { id: "umea", kod: "2480", namn: "Umeå", doman: "umea.se", url: "https://www.umea.se/", ton: "hsl(280 42% 32%)" },
+  { id: "upplandsvasby", kod: "114", namn: "Upplands Väsby", doman: "upplandsvasby.se", url: "https://www.upplandsvasby.se/", ton: "hsl(138 42% 32%)" },
+  { id: "upplandsbro", kod: "139", namn: "Upplands-Bro", doman: "upplands-bro.se", url: "https://www.upplands-bro.se/", ton: "hsl(323 42% 32%)" },
+  { id: "uppsala", kod: "380", namn: "Uppsala", doman: "uppsala.se", url: "https://www.uppsala.se/", ton: "hsl(220 42% 32%)" },
+  { id: "uppvidinge", kod: "760", namn: "Uppvidinge", doman: "uppvidinge.se", url: "https://www.uppvidinge.se/", ton: "hsl(80 42% 32%)" },
+  { id: "vadstena", kod: "584", namn: "Vadstena", doman: "vadstena.se", url: "https://www.vadstena.se/", ton: "hsl(88 42% 32%)" },
+  { id: "vaggeryd", kod: "665", namn: "Vaggeryd", doman: "vaggeryd.se", url: "https://www.vaggeryd.se/", ton: "hsl(25 42% 32%)" },
+  { id: "valdemarsvik", kod: "563", namn: "Valdemarsvik", doman: "valdemarsvik.se", url: "https://www.valdemarsvik.se/", ton: "hsl(91 42% 32%)" },
+  { id: "vallentuna", kod: "115", namn: "Vallentuna", doman: "vallentuna.se", url: "https://www.vallentuna.se/", ton: "hsl(275 42% 32%)" },
+  { id: "vansbro", kod: "2021", namn: "Vansbro", doman: "vansbro.se", url: "https://www.vansbro.se/", ton: "hsl(37 42% 32%)" },
+  { id: "vara", kod: "1470", namn: "Vara", doman: "vara.se", url: "https://www.vara.se/", ton: "hsl(150 42% 32%)" },
+  { id: "varberg", kod: "1383", namn: "Varberg", doman: "varberg.se", url: "https://www.varberg.se/", ton: "hsl(111 42% 32%)" },
+  { id: "vaxholm", kod: "187", namn: "Vaxholm", doman: "vaxholm.se", url: "https://vaxholm.se/", ton: "hsl(59 42% 32%)" },
+  { id: "vellinge", kod: "1233", namn: "Vellinge", doman: "vellinge.se", url: "https://www.vellinge.se/", ton: "hsl(81 42% 32%)" },
+  { id: "vetlanda", kod: "685", namn: "Vetlanda", doman: "vetlanda.se", url: "https://www.vetlanda.se/", ton: "hsl(245 42% 32%)" },
+  { id: "vilhelmina", kod: "2462", namn: "Vilhelmina", doman: "vilhelmina.se", url: "https://www.vilhelmina.se/", ton: "hsl(334 42% 32%)" },
+  { id: "vimmerby", kod: "884", namn: "Vimmerby", doman: "vimmerby.se", url: "https://www.vimmerby.se/", ton: "hsl(148 42% 32%)" },
+  { id: "vindeln", kod: "2404", namn: "Vindeln", doman: "vindeln.se", url: "https://www.vindeln.se/", ton: "hsl(308 42% 32%)" },
+  { id: "vingaker", kod: "428", namn: "Vingåker", doman: "vingaker.se", url: "https://www.vingaker.se/", ton: "hsl(316 42% 32%)" },
+  { id: "vanersborg", kod: "1487", namn: "Vänersborg", doman: "vanersborg.se", url: "https://www.vanersborg.se/", ton: "hsl(319 42% 32%)" },
+  { id: "vannas", kod: "2460", namn: "Vännäs", doman: "vannas.se", url: "https://www.vannas.se/", ton: "hsl(60 42% 32%)" },
+  { id: "varmdo", kod: "120", namn: "Värmdö", doman: "varmdo.se", url: "https://www.varmdo.se/", ton: "hsl(240 42% 32%)" },
+  { id: "varnamo", kod: "683", namn: "Värnamo", doman: "varnamo.se", url: "https://www.varnamo.se/", ton: "hsl(331 42% 32%)" },
+  { id: "vastervik", kod: "883", namn: "Västervik", doman: "vastervik.se", url: "https://www.vastervik.se/", ton: "hsl(11 42% 32%)" },
+  { id: "vasteras", kod: "1980", namn: "Västerås", doman: "vasteras.se", url: "https://www.vasteras.se/", ton: "hsl(180 42% 32%)" },
+  { id: "vaxjo", kod: "780", namn: "Växjö", doman: "vaxjo.se", url: "https://www.vaxjo.se/", ton: "hsl(300 42% 32%)" },
+  { id: "vargarda", kod: "1442", namn: "Vårgårda", doman: "vargarda.se", url: "https://www.vargarda.se/", ton: "hsl(274 42% 32%)" },
+  { id: "ydre", kod: "512", namn: "Ydre", doman: "ydre.se", url: "https://www.ydre.se/", ton: "hsl(304 42% 32%)" },
+  { id: "ystad", kod: "1286", namn: "Ystad", doman: "ystad.se", url: "https://www.ystad.se/", ton: "hsl(142 42% 32%)" },
+  { id: "almhult", kod: "765", namn: "Älmhult", doman: "almhult.se", url: "https://almhult.se/", ton: "hsl(45 42% 32%)" },
+  { id: "alvdalen", kod: "2039", namn: "Älvdalen", doman: "alvdalen.se", url: "https://www.alvdalen.se/", ton: "hsl(343 42% 32%)" },
+  { id: "alvkarleby", kod: "319", namn: "Älvkarleby", doman: "alvkarleby.se", url: "https://www.alvkarleby.se/", ton: "hsl(143 42% 32%)" },
+  { id: "alvsbyn", kod: "2560", namn: "Älvsbyn", doman: "alvsbyn.se", url: "https://www.alvsbyn.se/", ton: "hsl(80 42% 32%)" },
+  { id: "angelholm", kod: "1292", namn: "Ängelholm", doman: "angelholm.se", url: "https://www.angelholm.se/", ton: "hsl(244 42% 32%)" },
+  { id: "amal", kod: "1492", namn: "Åmål", doman: "amal.se", url: "https://www.amal.se/", ton: "hsl(284 42% 32%)" },
+  { id: "ange", kod: "2260", namn: "Ånge", doman: "ange.se", url: "https://www.ange.se/", ton: "hsl(20 42% 32%)" },
+  { id: "are", kod: "2321", namn: "Åre", doman: "are.se", url: "https://www.are.se/", ton: "hsl(97 42% 32%)" },
+  { id: "arjang", kod: "1765", namn: "Årjäng", doman: "arjang.se", url: "https://www.arjang.se/", ton: "hsl(245 42% 32%)" },
+  { id: "asele", kod: "2463", namn: "Åsele", doman: "asele.se", url: "https://www.asele.se/", ton: "hsl(111 42% 32%)" },
+  { id: "astorp", kod: "1277", namn: "Åstorp", doman: "astorp.se", url: "https://www.astorp.se/", ton: "hsl(349 42% 32%)" },
+  { id: "atvidaberg", kod: "561", namn: "Åtvidaberg", doman: "atvidaberg.se", url: "https://atvidaberg.se/", ton: "hsl(177 42% 32%)" },
+  { id: "ockero", kod: "1407", namn: "Öckerö", doman: "ockero.se", url: "https://www.ockero.se/", ton: "hsl(159 42% 32%)" },
+  { id: "odeshog", kod: "509", namn: "Ödeshög", doman: "odeshog.se", url: "https://www.odeshog.se/", ton: "hsl(253 42% 32%)" },
+  { id: "orebro", kod: "1880", namn: "Örebro", doman: "orebro.se", url: "https://www.orebro.se/", ton: "hsl(160 42% 32%)" },
+  { id: "orkelljunga", kod: "1257", namn: "Örkelljunga", doman: "orkelljunga.se", url: "https://www.orkelljunga.se/", ton: "hsl(129 42% 32%)" },
+  { id: "ornskoldsvik", kod: "2284", namn: "Örnsköldsvik", doman: "ornskoldsvik.se", url: "https://www.ornskoldsvik.se/", ton: "hsl(68 42% 32%)" },
+  { id: "ostersund", kod: "2380", namn: "Östersund", doman: "ostersund.se", url: "https://www.ostersund.se/", ton: "hsl(260 42% 32%)" },
+  { id: "osteraker", kod: "117", namn: "Österåker", doman: "osteraker.se", url: "https://www.osteraker.se/", ton: "hsl(189 42% 32%)" },
+  { id: "osthammar", kod: "382", namn: "Östhammar", doman: "osthammar.se", url: "https://www.osthammar.se/", ton: "hsl(134 42% 32%)" },
+  { id: "ostragoinge", kod: "1256", namn: "Östra Göinge", doman: "ostragoinge.se", url: "https://www.ostragoinge.se/", ton: "hsl(352 42% 32%)" },
+  { id: "overkalix", kod: "2513", namn: "Överkalix", doman: "overkalix.se", url: "https://www.overkalix.se/", ton: "hsl(121 42% 32%)" },
+  { id: "overtornea", kod: "2518", namn: "Övertorneå", doman: "overtornea.se", url: "https://www.overtornea.se/", ton: "hsl(86 42% 32%)" }
 ];
 
-/**
- * Hitta en kommun i registret.
- */
-export function hittaKommun(id) {
-  return KOMMUNER.find(function (k) { return k.id === id; }) || null;
-}
-
-/**
- * Vilken kommun ska visas? Ordning: URL-parameter (?kommun=), annars den första.
- * Gör multikommun till en fråga om ?kommun=ystad i adressen — inget mer.
- */
-export function väljKommun(sokParametrar) {
-  var vald = null;
-  if (sokParametrar && typeof sokParametrar.get === 'function') {
-    vald = sokParametrar.get('kommun');
+/** Hittar kommun pa id eller kommunkod. */
+function kommun(nyckel) {
+  for (var i = 0; i < KOMMUNER.length; i++) {
+    if (KOMMUNER[i].id === nyckel || KOMMUNER[i].kod === nyckel) return KOMMUNER[i];
   }
-  if (vald && hittaKommun(vald)) return hittaKommun(vald);
-  return KOMMUNER[0] || null;
+  return null;
 }
 
-/**
- * Ladda en kommuns dataset (webbläsare, fetch). Returnerar Promise<dataset>.
- * Robust: kastar tydligt fel om filen saknas eller är trasig.
- */
-export function laddaDataset(kommun) {
-  if (!kommun || !kommun.datafil) {
-    return Promise.reject(new Error('Ingen kommun eller datafil angiven'));
-  }
-  return fetch(kommun.datafil).then(function (svar) {
-    if (!svar.ok) {
-      throw new Error('Kunde inte ladda ' + kommun.datafil + ' (' + svar.status + ')');
-    }
-    return svar.json();
-  }).then(function (data) {
-    if (!data || !Array.isArray(data.pages)) {
-      throw new Error('Datafilen ' + kommun.datafil + ' har fel format (saknar pages)');
-    }
-    return data;
-  });
+function datafil(id) { return "data/" + id + ".json"; }
+
+/* Kommunvapen ar skyddade enligt lagen (1970:498). Filen anvands bara om
+ * den faktiskt finns — lagg den i bilder/vapen/<id>.png nar du har ratt
+ * att anvanda den. Saknas den visas kommunmarkoren i stallet. */
+function vapenfil(id) { return "bilder/vapen/" + id + ".png"; }
+
+async function harVapen(id) {
+  try {
+    var r = await fetch(vapenfil(id), { method: "HEAD", cache: "force-cache" });
+    return r.ok;
+  } catch (e) { return false; }
 }
 
-/**
- * Firestore-collection för en kommuns status. Varje kommun får sin egen,
- * så statusar aldrig blandas mellan kommuner.
- * Sjöbo behåller 'pageStatus' (bakåtkompatibelt); andra får 'pageStatus_<id>'.
- */
-export function statusCollection(kommunId) {
-  return kommunId === 'sjobo' ? 'pageStatus' : ('pageStatus_' + kommunId);
+/** Vilka kommuner som har en datafil. Returnerar { id: true/false }. */
+async function vilkaHarData() {
+  var ut = {};
+  await Promise.all(KOMMUNER.map(async function (k) {
+    try {
+      var r = await fetch(datafil(k.id), { method: "HEAD", cache: "no-cache" });
+      ut[k.id] = r.ok;
+    } catch (e) { ut[k.id] = false; }
+  }));
+  return ut;
 }
 
-/**
- * Bygg alternativ för en dataväljare (id + namn), t.ex. för en <select>.
- */
-export function kommunAlternativ() {
-  return KOMMUNER.map(function (k) { return { id: k.id, namn: k.namn }; });
+/** Kommandot som hamtar en kommun pa Bosgame. */
+function skrapkommando(id) {
+  var k = kommun(id);
+  return k ? "cd $HOME/system/granska && ./granska.py hamta " + k.url + " 150" : "";
+}
+
+/** Tva bokstaver som kommunmarkor, t.ex. "Sj" for Sjobo. */
+function markor(k) {
+  // Kommunkoden ar unik och officiell. Tva bokstaver ur namnet kolliderar
+  // (Ale, Alingsas och Alvesta blir alla "Al").
+  return typeof k === "string" ? k : (k && k.kod) || "";
+}
+
+/* Namnen kommer fran SKR utan suffix ("Sjobo", inte "Sjobo kommun").
+ * Vilka kommuner som officiellt kallar sig stad finns inte i den datan,
+ * och att gissa blir fel pa bade Boras och Nacka. Domanen under namnet
+ * far bara forydligandet i stallet. */
+
+if (typeof module !== "undefined" && module.exports) {
+  module.exports = { KOMMUNER: KOMMUNER, kommun: kommun, datafil: datafil,
+                     vapenfil: vapenfil, skrapkommando: skrapkommando,
+                     markor: markor };
 }
