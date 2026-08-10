@@ -842,6 +842,15 @@
   .kommunnamn{font-weight:600}
   .kommundoman{font-size:.78rem;color:#61707f}
 </style>
+<style>
+  .kommunvapen{flex:0 0 auto;width:2.6rem;height:2.6rem;object-fit:contain}
+</style>
+<style>
+  .tomlage{max-width:34rem;margin:1.5rem 0;padding:1.4rem 1.6rem;
+    background:#f4f7fa;border-left:3px solid #1a4d7a;border-radius:0 6px 6px 0}
+  .tomlage p{margin:0 0 .6rem}.tomlage p:last-child{margin:0}
+  .tomlage .dov{font-size:.88rem;color:#61707f}
+</style>
 </head>
 <body>
 <div id="pw-gate">
@@ -907,32 +916,87 @@
 <script src="src/export.js"></script>
 <script src="src/rapport.js"></script>
 <script>
-const FORV_LIST = [
+let FORV_LIST = [
   { id: "familje", name: "Familjeförvaltningen", desc: "Socialtjänst, skola, kultur" },
   { id: "vard",    name: "Vård och omsorg",     desc: "Hälso- och sjukvård, äldre, LSS" },
   { id: "tekn",    name: "Tekniska / Samhällsbyggnad", desc: "Bygg, miljö, trafik, gator" },
   { id: "allm",    name: "Allmänt / Övergripande",     desc: "Kommun, politik, allmänna sidor" },
 ];
-const FORV_NAME_TO_ID = {
+let FORV_NAME_TO_ID = {
   "Familjeförvaltningen": "familje",
   "Vård och omsorg": "vard",
   "Tekniska / Samhällsbyggnad": "tekn",
   "Allmänt / Övergripande": "allm",
 };
-const VERKS_LIST = [
+let VERKS_LIST = [
   { id: "ifo",    name: "Socialtjänst / IFO",       desc: "Familjestöd, ekonomi, våld" },
   { id: "grund",  name: "Grundskola & förskola",    desc: "Förskola, grundskola, elevhälsa" },
   { id: "gymn",   name: "Gymnasie / Vuxen / Arb.",  desc: "Malenagymnasiet, vux, AME" },
   { id: "kultur", name: "Kultur",                   desc: "Bibliotek, kulturskola, konsthall" },
 ];
-const VERKS_NAME_TO_ID = {
+let VERKS_NAME_TO_ID = {
   "Socialtjänst / IFO": "ifo",
   "Grundskola & förskola": "grund",
   "Gymnasie / Vuxenutb. / Arbetsmarknad": "gymn",
   "Kultur": "kultur",
 };
 
+/* Grupperna kommer fran datan, inte fran koden.
+ *
+ * Sjobos fil innehaller riktiga forvaltningsnamn och behaller darfor sina
+ * beskrivningar nedan. Andra kommuner far omraden ur sin egen webbplats
+ * (brygga_db.py laser dem ur kommunens omradessidor) - deras organisation
+ * ser annorlunda ut och far inte visas med Sjobos namn.
+ *
+ * Ar datan tom blir listorna tomma. En kommun utan granskning ska inte
+ * visa nagon annan kommuns forvaltningar. */
+const SJOBO_FORV = FORV_LIST.slice();
+const STANDARDOMRADEN = [
+  { id: "utbildning", name: "Utbildning och f\u00f6rskola", desc: "F\u00f6rskola, skola, gymnasium" },
+  { id: "omsorg",     name: "Omsorg och st\u00f6d",         desc: "\u00c4ldre, funktionsst\u00f6d, socialtj\u00e4nst" },
+  { id: "bygga",      name: "Bygga, bo och milj\u00f6",     desc: "Bygglov, avfall, vatten" },
+  { id: "uppleva",    name: "Uppleva och g\u00f6ra",        desc: "Kultur, fritid, evenemang" },
+  { id: "trafik",     name: "Trafik och gator",          desc: "V\u00e4gar, parkering, resor" },
+  { id: "kommun",     name: "Kommun och politik",        desc: "Organisation, beslut, insyn" },
+];
+const SJOBO_VERK = VERKS_LIST.slice();
+
+function _slug(s) {
+  return String(s).toLowerCase()
+    .replace(/[åä]/g, "a").replace(/ö/g, "o")
+    .replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "ovrigt";
+}
+
+function byggGrupperUrData() {
+  const forv = [], fvid = {}, verk = [], vkid = {};
+  const sedda = new Set(), seddaVk = new Set();
+
+  for (const e of DATA) {
+    if (e.fv && !sedda.has(e.fv)) {
+      sedda.add(e.fv);
+      const kant = SJOBO_FORV.find(f => f.name === e.fv);
+      const id = kant ? kant.id : _slug(e.fv);
+      forv.push(kant || { id: id, name: e.fv, desc: "" });
+      fvid[e.fv] = id;
+    }
+    if (e.vk && !seddaVk.has(e.vk)) {
+      seddaVk.add(e.vk);
+      const kant = SJOBO_VERK.find(v => v.name === e.vk);
+      const id = kant ? kant.id : _slug(e.vk);
+      verk.push(kant || { id: id, name: e.vk, desc: "" });
+      vkid[e.vk] = id;
+    }
+  }
+  // Utan data visas kommunwebbplatsernas vanligaste toppniva. De ersatts
+  // av kommunens egna omraden sa fort en granskning finns.
+  FORV_LIST = forv.length ? forv : STANDARDOMRADEN.slice();
+  FORV_NAME_TO_ID = fvid;
+  VERKS_LIST = verk;
+  VERKS_NAME_TO_ID = vkid;
+}
+
 function indexData() {
+  byggGrupperUrData();
   for (const e of DATA) {
     e._fvid = FORV_NAME_TO_ID[e.fv];
     e._vkid = e.vk ? VERKS_NAME_TO_ID[e.vk] : "";
@@ -1124,8 +1188,8 @@ function renderLanding() {
     return renderTile({ title: f.name, desc: f.desc, pages, target: `forv/${f.id}` });
   }).join("");
   return `
-    <h1 class="hero">Välj din förvaltning</h1>
-    <p class="hero-sub">Sidor som behöver språkrättning, sorterade efter ansvar.</p>
+    <h1 class="hero">V\u00e4lj din f\u00f6rvaltning</h1>
+    <p class="hero-sub">Sidor som beh\u00f6ver spr\u00e5kr\u00e4ttning, sorterade efter ansvar.</p>
     <div class="grid">${cards}</div>
   `;
 }
@@ -1430,14 +1494,16 @@ function renderKommuner() {
   const kort = lista.map(k => {
     const har = kommunData && kommunData[k.id];
     return `<div class="kommunkort${har ? " har-data" : ""}">
-      <span class="kommunmarkor" style="background:${k.ton}">${escapeHTML(k.kod)}</span>
+      <img class="kommunvapen" src="${vapenfil(k.id)}" alt=""
+           onerror="this.replaceWith(Object.assign(document.createElement('span'),
+             {className:'kommunmarkor',textContent:'${k.kod}',style:'background:${k.ton}'}))">
       <div class="kommuninfo">
         <div class="kommunnamn">${escapeHTML(k.namn)}</div>
         <div class="kommundoman">${escapeHTML(k.doman)}</div>
       </div>
-      ${har
-        ? `<button class="btn btn-primary" type="button" onclick="goto('kommun/${k.id}')">Öppna</button>`
-        : `<button class="btn btn-outline" type="button" onclick="kopieraKommando('${k.id}')">Kopiera skrapkommando</button>`}
+      <button class="btn ${har ? "btn-primary" : "btn-outline"}" type="button"
+              onclick="goto('kommun/${k.id}')">${har ? "Öppna" : "Öppna (tom)"}</button>
+      ${har ? "" : `<button class="linkbtn" type="button" onclick="kopieraKommando('${k.id}')">Kopiera skrapkommando</button>`}
     </div>`;
   }).join("");
   const antalMedData = kommunData ? Object.values(kommunData).filter(Boolean).length : "-";
@@ -1750,29 +1816,26 @@ function stallInSidhuvud() {
   if (!k) return;
   const logo = document.getElementById("sjobo-logo");
   const slot = document.getElementById("brand-logo-slot");
-  const titel = null;  // Sjobos rubrik star i HTML:en och ska inte roras
+  const app  = document.querySelector(".brand-app");
+  const upd  = document.querySelector(".brand-updated");
 
   if (valdKommun === "sjobo") {
     if (logo) logo.style.display = "";
     if (slot) slot.innerHTML = "";
   } else {
+    // Sjobos vapen far aldrig visas for en annan kommun.
     if (logo) logo.style.display = "none";
-    if (slot) slot.innerHTML = '<span class="kommunmarkor" style="background:' +
-      k.ton + ';width:52px;height:52px;font-size:.9rem">' + k.kod + '</span>';
+    if (slot) slot.innerHTML = '<img class="brand-logo-img" src="' +
+      vapenfil(k.id) + '" alt="' + k.namn + '">';
+    if (app) app.textContent = "Spr\u00e5kr\u00e4ttning " + k.doman;
+    if (upd) upd.textContent = (DATASET_META && DATASET_META.generatedAt)
+      ? "Uppdaterad " + fmtDate(DATASET_META.generatedAt)
+      : "Ingen granskning \u00e4nnu";
+    document.title = "Spr\u00e5kr\u00e4ttning " + k.doman;
   }
-  if (titel) titel.textContent = "Språkrättning " + k.doman;
-  document.title = "Språkrättning " + k.doman;
 
-  const nav = document.querySelector(".topbar-nav");
-  if (adminLage && nav && !document.getElementById("btn-kommuner")) {
-    const b = document.createElement("button");
-    b.id = "btn-kommuner";
-    b.className = "topbar-link";
-    b.type = "button";
-    b.textContent = "Byt kommun";
-    b.onclick = tillKommunvaljaren;
-    nav.insertBefore(b, nav.firstChild);
-  }
+  const bk = document.getElementById("btn-byt-kommun");
+  if (bk) bk.style.display = adminLage ? "" : "none";
 }
 
 async function init() {
@@ -1885,17 +1948,21 @@ async function loadDataset() {
 
     return dataset;
   } catch (error) {
-    console.error("Kunde inte ladda dataset:", error);
-    const root = document.getElementById("app") || document.body;
-    root.innerHTML = `
-      <main class="container">
-        <section class="fatal-error">
-          <h1>Kunde inte ladda språkdatan</h1>
-          <p>Appen kunde inte läsa data/sjobo.json.</p>
-        </section>
-      </main>
-    `;
-    throw error;
+    console.warn("Ingen datafil for", valdKommun, "- visar tom app.");
+    // En kommun utan granskning ar inte ett fel. Appen ska se komplett ut
+    // och vara redo att fyllas nar datafilen finns.
+    DATA = [];
+    DATASET_META = {
+      datasetId: valdKommun + "-tom",
+      municipalityId: valdKommun,
+      municipalityName: (typeof kommun === "function" && kommun(valdKommun))
+        ? kommun(valdKommun).namn : valdKommun,
+      sourceDomain: (typeof kommun === "function" && kommun(valdKommun))
+        ? kommun(valdKommun).doman : "",
+      generatedAt: null,
+      version: 1
+    };
+    return null;
   }
 }
 

@@ -314,7 +314,13 @@ function datafil(id) { return "data/" + id + ".json"; }
 /* Kommunvapen ar skyddade enligt lagen (1970:498). Filen anvands bara om
  * den faktiskt finns — lagg den i bilder/vapen/<id>.png nar du har ratt
  * att anvanda den. Saknas den visas kommunmarkoren i stallet. */
-function vapenfil(id) { return "bilder/vapen/" + id + ".png"; }
+/* Filnamnen fran kallan anvander ibland bindestreck (ostra-goinge)
+   dar registrets id inte gor det (ostragoinge). Prova bada. */
+var VAPEN_ALIAS = { ostragoinge: "ostra-goinge", upplandsbro: "upplands-bro",
+                    malungsalen: "malung-salen" };
+function vapenfil(id) {
+  return "bilder/vapen/" + (VAPEN_ALIAS[id] || id) + ".png";
+}
 
 async function harVapen(id) {
   try {
