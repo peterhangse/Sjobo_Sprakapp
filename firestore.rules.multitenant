@@ -1,0 +1,76 @@
+rules_version = '2';
+
+// firestore.rules — multitenant med riktig inloggning
+//
+// ERSÄTTER de nuvarande reglerna (som tillåter publik read/write till
+// pageStatus). Detta är vad som gör inloggning MENINGSFULL: utan detta är
+// "inloggning" bara kosmetik, för data ligger ändå öppen.
+//
+// Modell:
+//   - users/{uid}         -> { tenantId, roll }   (vem hör till vilken kund)
+//   - tenants/{tenantId}  -> { name, plan, activeUntil, status }
+//   - tenants/{tid}/pageStatus/{doc} -> sidstatus, isolerad per kund
+//
+// Skydd:
+//   - Bara inloggade användare släpps in.
+//   - En användare når BARA sin egen tenants data.
+//   - En användare når bara data om deras tenant är aktiv (activeUntil).
+//   -> "Faktura obetald" = sätt activeUntil i det förflutna = automatisk spärr.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Hjälpare: är anropet inloggat?
+    function inloggad() {
+      return request.auth != null;
+    }
+
+    // Hjälpare: vilken tenant hör den inloggade användaren till?
+    function minTenant() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.tenantId;
+    }
+
+    // Hjälpare: är en tenant aktiv? (activeUntil i framtiden ELLER saknas)
+    function tenantAktiv(tid) {
+      let t = get(/databases/$(database)/documents/tenants/$(tid)).data;
+      return t.status != 'spärrad' &&
+             (!('activeUntil' in t) || t.activeUntil == '' ||
+              request.time < timestamp.date(2000,1,1) ||  // failsafe
+              t.activeUntil > string(request.time));
+    }
+
+    // Användarprofiler: läses bara av ägaren. Skrivs bara av admin (via konsol).
+    match /users/{uid} {
+      allow read: if inloggad() && request.auth.uid == uid;
+      allow write: if false; // skapas manuellt i Firebase-konsolen
+    }
+
+    // Tenant-metadata: läses av dess egna användare. Skrivs bara av admin.
+    match /tenants/{tid} {
+      allow read: if inloggad() && minTenant() == tid;
+      allow write: if false; // du sätter plan/activeUntil manuellt
+
+      // Sidstatus, isolerad per tenant och skyddad av aktiv-koll
+      match /pageStatus/{doc} {
+        allow read: if inloggad() && minTenant() == tid;
+        allow write: if inloggad()
+                     && minTenant() == tid
+                     && tenantAktiv(tid)
+                     // validera fälten (som dina nuvarande regler gör)
+                     && request.resource.data.keys().hasOnly(
+                          ['url', 'status', 'clearedAt', 'updatedAt']);
+      }
+
+      // Dataset kan läsas av tenantens användare (om du lägger data i Firestore)
+      match /datasets/{ds}/{document=**} {
+        allow read: if inloggad() && minTenant() == tid;
+        allow write: if false; // importeras av dig, inte av klienten
+      }
+    }
+
+    // Allt annat: nekas (deny by default)
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -1,0 +1,132 @@
+/* designsystem.css — grafisk riktning enligt planen
+ *
+ * Myndighetsnära, rent, tryggt, tillgängligt (WCAG / EN 301 549).
+ * Semantiska färger: blå struktur, grön klar, gul granska, röd akut, grå metadata.
+ * Aldrig ENBART färg för status — alltid även text/ikon (WCAG-krav).
+ *
+ * Fristående. Koppla in i index.html när vi ser hur den är byggd; krockar
+ * inte med befintlig logik, bara stilar under klassen .sprak-*.
+ */
+
+:root {
+  /* Semantiska färger — kontrastkontrollerade mot vitt (WCAG AA) */
+  --sprak-bla:   #1a5276;  /* struktur, länkar, myndighetskänsla */
+  --sprak-gron:  #1e7e34;  /* klar/fixad */
+  --sprak-gul:   #a56404;  /* behöver granskas (mörk nog för AA-kontrast) */
+  --sprak-rod:   #b02a1c;  /* akut */
+  --sprak-gra:   #5a6570;  /* neutral metadata */
+  --sprak-bg:    #f6f8fa;
+  --sprak-yta:   #ffffff;
+  --sprak-text:  #212b36;
+  --sprak-kant:  #dfe4ea;
+  --sprak-fokus: #2563eb;  /* tydlig fokusmarkering */
+}
+
+.sprak-app {
+  font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: var(--sprak-text);
+  background: var(--sprak-bg);
+  line-height: 1.5;
+}
+
+/* Tydliga fokusmarkeringar (WCAG 2.4.7) — aldrig ta bort outline utan ersättning */
+.sprak-app :focus-visible {
+  outline: 3px solid var(--sprak-fokus);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Statusmärke — färg PLUS text/ikon, aldrig bara färg (WCAG 1.4.1) */
+.sprak-status {
+  display: inline-flex; align-items: center; gap: .35em;
+  padding: .15em .6em; border-radius: 999px;
+  font-size: .8rem; font-weight: 600; white-space: nowrap;
+}
+.sprak-status::before { content: ""; width: .6em; height: .6em; border-radius: 50%; }
+.sprak-status.gron { background: #e6f4ea; color: var(--sprak-gron); }
+.sprak-status.gron::before { background: var(--sprak-gron); }
+.sprak-status.gul  { background: #fdf2e0; color: var(--sprak-gul); }
+.sprak-status.gul::before  { background: var(--sprak-gul); }
+.sprak-status.rod  { background: #fbeae7; color: var(--sprak-rod); }
+.sprak-status.rod::before  { background: var(--sprak-rod); }
+.sprak-status.gra  { background: #eef1f4; color: var(--sprak-gra); }
+.sprak-status.gra::before  { background: var(--sprak-gra); }
+
+/* Sidkort (planens kortdesign) */
+.sprak-kort {
+  background: var(--sprak-yta);
+  border: 1px solid var(--sprak-kant);
+  border-radius: 10px;
+  padding: 1rem 1.2rem;
+  margin-bottom: .8rem;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: .5rem 1rem;
+  align-items: start;
+}
+.sprak-kort:hover { border-color: var(--sprak-bla); }
+.sprak-kort .titel { font-weight: 700; color: var(--sprak-bla); font-size: 1.05rem; }
+.sprak-kort .url {
+  font-size: .85rem; color: var(--sprak-gra);
+  word-break: break-all; text-decoration: none;
+}
+.sprak-kort .url:hover { text-decoration: underline; }
+.sprak-kort .meta { font-size: .8rem; color: var(--sprak-gra); margin-top: .2rem; }
+.sprak-kort .fel-antal { font-weight: 700; }
+.sprak-kort .fel-antal.akut { color: var(--sprak-rod); }
+
+/* Knappar — stora nog klickytor (WCAG 2.5.5, minst ~44px höjd) */
+.sprak-knapp {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 44px; padding: .5rem 1.1rem;
+  border: 1px solid var(--sprak-bla); border-radius: 8px;
+  background: var(--sprak-bla); color: #fff;
+  font-size: .95rem; font-weight: 600; cursor: pointer;
+  text-decoration: none;
+}
+.sprak-knapp:hover { background: #14415c; }
+.sprak-knapp.sekundar { background: #fff; color: var(--sprak-bla); }
+.sprak-knapp.sekundar:hover { background: #eef4f8; }
+.sprak-knapp.gron { background: var(--sprak-gron); border-color: var(--sprak-gron); }
+
+/* Progressbar per förvaltning (planens progresskomponent) */
+.sprak-progress { margin: .5rem 0; }
+.sprak-progress .rad {
+  display: flex; justify-content: space-between;
+  font-size: .9rem; margin-bottom: .25rem;
+}
+.sprak-progress .spar {
+  background: #e8ecf0; border-radius: 999px; height: 12px; overflow: hidden;
+}
+.sprak-progress .fyllnad {
+  background: var(--sprak-gron); height: 100%; border-radius: 999px;
+  transition: width .3s ease;
+}
+
+/* Dashboard-kort (siffror högst upp) */
+.sprak-dashboard {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem; margin: 1.5rem 0;
+}
+.sprak-dashboard .ruta {
+  background: var(--sprak-yta); border: 1px solid var(--sprak-kant);
+  border-radius: 10px; padding: 1.2rem; text-align: center;
+}
+.sprak-dashboard .tal { font-size: 2rem; font-weight: 700; color: var(--sprak-bla); }
+.sprak-dashboard .ruta.akut .tal { color: var(--sprak-rod); }
+.sprak-dashboard .ruta.klar .tal { color: var(--sprak-gron); }
+.sprak-dashboard .etikett { font-size: .82rem; color: var(--sprak-gra); margin-top: .3rem; }
+
+/* Tangentbordshjälp (planens K/N/B/S) */
+.sprak-tangenter {
+  font-size: .8rem; color: var(--sprak-gra); margin-top: 1rem;
+}
+.sprak-tangenter kbd {
+  background: #eef1f4; border: 1px solid var(--sprak-kant); border-radius: 4px;
+  padding: .1em .4em; font-family: monospace; font-size: .9em;
+}
+
+/* Respektera användare som vill ha mindre rörelse */
+@media (prefers-reduced-motion: reduce) {
+  .sprak-progress .fyllnad { transition: none; }
+}
