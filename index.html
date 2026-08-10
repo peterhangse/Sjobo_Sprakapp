@@ -963,7 +963,7 @@ let doneState = {};
 let showDone = false;
 
 // === Lagring (Firestore) ==================================================
-const PAGE_STATUS_COLLECTION = "pageStatus_" + valdKommun;
+const PAGE_STATUS_COLLECTION = "pageStatus";
 const FIREBASE_CONFIG = window.FIREBASE_CONFIG || {
   apiKey: "AIzaSyCKU5dn5FX66G-SdMOA3YM28g6tyVce6vU",
   authDomain: "sjobo-sprakapp.firebaseapp.com",
@@ -1750,7 +1750,7 @@ function stallInSidhuvud() {
   if (!k) return;
   const logo = document.getElementById("sjobo-logo");
   const slot = document.getElementById("brand-logo-slot");
-  const titel = document.querySelector(".brand-title, .topbar-inner h1, .brand-text");
+  const titel = null;  // Sjobos rubrik star i HTML:en och ska inte roras
 
   if (valdKommun === "sjobo") {
     if (logo) logo.style.display = "";
