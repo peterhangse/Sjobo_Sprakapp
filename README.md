@@ -42,6 +42,21 @@ firebase use --add
 firebase deploy --only hosting,firestore:rules
 ```
 
+## Säkerhetsheaders
+
+Firebase Hosting konfigureras i `firebase.json` med CSP, skydd mot inramning,
+innehållstyp-sniffning, cross-origin opener och referrer-policy. Samma
+konfiguration exkluderar uttryckligen `.git` från varje Hosting-deploy.
+
+Efter nästa deploy, verifiera den publika webbplatsen:
+
+```bash
+curl -I https://sjobo-sprakapp.web.app/
+curl -I https://sjobo-sprakapp.web.app/.git/HEAD
+```
+
+Det första svaret ska innehålla säkerhetsheaders och det andra ska vara `404`.
+
 ## Hur Firestore-status fungerar
 
 - Appen använder samlingen `pageStatus` för delad sidstatus.
