@@ -1,1 +1,5 @@
 Hemsidor
+kod: opencode
+server: python3 -m http.server 8000
+deploy: git add -A && git commit -m 'uppdatering' && git push origin main
+https://sjobo-sprakapp.web.app
