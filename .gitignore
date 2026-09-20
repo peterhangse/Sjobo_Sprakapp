@@ -1,4 +1,4 @@
-firebase/
+.firebase/
 .serena/
 node_modules/
 .DS_Store
