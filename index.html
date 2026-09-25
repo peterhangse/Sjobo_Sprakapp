@@ -1663,10 +1663,14 @@ window.openExportModal = function() {
       const errText = errCount === 1 ? "1 fel" : `${errCount} fel`;
       const dateText = escapeHTML(formatDateTime(timestamp));
       const safeUrl = escapeHTML(url);
+      const lankarSaker = /^https?:\/\//i.test(url);
+      const urlLank = lankarSaker
+        ? `<a class="archive-url" href="${safeUrl}" target="_blank" rel="noopener noreferrer">${safeUrl}</a>`
+        : `<span class="archive-url">${safeUrl}</span>`;
       return `<div class="archive-row">
         <div class="archive-title">
           <span class="archive-name">${name}</span>
-          <a class="archive-url" href="${safeUrl}" target="_blank" rel="noopener noreferrer">${safeUrl}</a>
+          ${urlLank}
         </div>
         <span class="archive-errors">${errText}</span>
         <span class="archive-date">${dateText}</span>

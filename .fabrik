@@ -1,6 +1,6 @@
 Hemsidor
 kod: opencode
-server: python3 -m http.server 8000
+server: python3 -m http.server 8000 --bind 127.0.0.1
 deploy: git add -A && git commit -m 'uppdatering' && git push origin main
 https://sjobo-sprakapp.web.app
 granska: graftmap map --budget 2048

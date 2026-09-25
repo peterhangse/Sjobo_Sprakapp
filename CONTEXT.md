@@ -33,7 +33,13 @@ bilder/vapen/             — kommunvapen-baner
 - **`doneState`** i localStorage (avancerat granskat/hittas) per användare.
 - **Firestore `pageStatus`**: kollektion där varje dokument-ID är
   `base64url({url})` och innehåller delat "vem sa klart" — visar liga-status på
-  alla. **Skriv- och läspublik öppen** (inga regler begränsar `pageStatus`).
+  alla. **Skriv- och läspublik öppen** (medvetet — appen har ingen inloggning),
+  men `firestore.rules` validerar nu `url` (måste matcha `https://` utan
+  mellanslag, max 2000 tecken) samt längdtak på `clearedAt`/`updatedAt`.
+  Klienten (arkivmodalen i `index.html`) renderar dessutom aldrig `url` som
+  klickbar länk om den inte börjar med `http(s)://` — javascript:-URL:er i
+  redan lagrad data kan alltså inte köra script. Reglerna är emulator-testade
+  (12/12, `@firebase/rules-unit-testing`).
 - Realtid på dels djup via `onSnapshot()`-lysandet.
 
 ## Köra / deploya
@@ -68,8 +74,9 @@ skriva nytt. Notera: `sjobo-trasig.json` innehåller bara `items` (ingen
 - `.github/src` är TILLFÄLLIGT deployad data (`src/*.js` kopieras ut till
   public/); vill du ändra den färdiga bundlen ska du ändra `src/*.js` och
   bygga bundle via skript (inte spåra `sjobo.js` direkt).
-- `firestore.rules` begränsar INTE `pageStatus` skrivning — öppen. Vill du
-  stänga: auth-krav, men appen är lösenord-in-span.
+- `firestore.rules` begränsar INTE `pageStatus` skrivning — öppen (medvetet,
+  se ovan), men härdad mot XSS-payload och kvotmissbruk via schemavalidering.
+  Vill du stänga helt: auth-krav, men appen är lösenord-in-span.
 
 ## Viktigt
 
