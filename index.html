@@ -886,7 +886,7 @@
       <span class="brand-divider-line" aria-hidden="true"></span>
       <span class="brand-text">
         <span class="brand-app">Språkrättning sjobo.se</span>
-        <span class="brand-updated">Uppdaterad 29 maj 2026</span>
+        <span class="brand-updated">Uppdaterad 9 okt. 2026</span>
       </span>
     </button>
     <nav class="topbar-nav">
@@ -1085,12 +1085,23 @@ function urlToPageId(url) {
   return btoa(binary).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/g, "");
 }
 
+/* En sida som markerats klar FÖRE senaste kontrollen (DATASET_META.generatedAt)
+   men som fortfarande finns i datafilen har kvar fel på den publicerade sajten.
+   Den räknas då som öppen igen. Sidor som är helt rättade finns inte längre i
+   datafilen och ligger kvar som klara i historiken. Firestore ändras inte. */
+function arAterOppnad(url, clearedAt) {
+  const kontroll = DATASET_META && DATASET_META.generatedAt;
+  return !!(kontroll && clearedAt < kontroll && getPageByUrl(url));
+}
+
 function applyDoneStateSnapshot(snapshot) {
   const nextState = {};
   snapshot.forEach(doc => {
     const d = doc.data();
     if (!d || d.status !== "cleared" || typeof d.url !== "string") return;
-    nextState[d.url] = typeof d.clearedAt === "string" && d.clearedAt ? d.clearedAt : new Date().toISOString();
+    const clearedAt = typeof d.clearedAt === "string" && d.clearedAt ? d.clearedAt : new Date().toISOString();
+    if (arAterOppnad(d.url, clearedAt)) return;
+    nextState[d.url] = clearedAt;
   });
   doneState = nextState;
 }
@@ -1914,6 +1925,9 @@ function stallInSidhuvud() {
 async function init() {
   stallInSidhuvud();
   await loadDataset();
+  // Datumet i sidhuvudet följer datafilen, så det stämmer efter varje ny kontroll.
+  const upd = document.querySelector(".brand-updated");
+  if (upd && DATASET_META.generatedAt) upd.textContent = "Uppdaterad " + fmtDate(DATASET_META.generatedAt);
   PAGES = indexData();
   await loadState();
   window.addEventListener("hashchange", route);

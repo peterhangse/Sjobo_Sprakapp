@@ -4,3 +4,8 @@ node_modules/
 .DS_Store
 .env
 *.backup-*
+
+# Kontrollens arbetsfiler (skapas av scripts/kontroll)
+scripts/kontroll/pages.jsonl
+scripts/kontroll/rawcache/
+scripts/kontroll/kontroll_*.csv

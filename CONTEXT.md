@@ -64,6 +64,16 @@ r:rad, k:kategori, a:atomer?, vk/v/p: metadata}` — kolla `.schema` om du ska
 skriva nytt. Notera: `sjobo-trasig.json` innehåller bara `items` (ingen
 `schema`), resten av JSON-filerna har schema.
 
+## Kontroll mot publicerad sajt
+
+`scripts/kontroll/` (se README där) hämtar sjobo.se och skriver om
+`data/sjobo.json` så att bara fel som finns kvar på den publicerade sajten
+ligger kvar; `generatedAt` sätts till kontrolltiden. I `index.html` ignorerar
+`applyDoneStateSnapshot()` klarmarkeringar som är äldre än `generatedAt` för
+sidor som fortfarande finns i datafilen (`arAterOppnad()`), så de visas som
+öppna igen. Firestore ändras inte. Datumet i sidhuvudet sätts från
+`generatedAt` i `init()`.
+
 ## Gotchas (verifierat)
 
 - **`local_granskning.py`** (repo-rot, util) använder `gpt-oss:20b` via Ollama
