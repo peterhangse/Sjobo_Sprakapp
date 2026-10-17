@@ -4,3 +4,5 @@ node_modules/
 .DS_Store
 .env
 *.backup-*
+scripts/kontroll/cache/
+scripts/kontroll/pages.jsonl
