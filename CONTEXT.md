@@ -11,7 +11,8 @@ framsteg i realtid. Live: **sjobo-sprakapp.web.app** (HTTP 200).
   SPA-router. Ingen paketmanager, ingen server på sajten.
 - **Firebase Hosting** (~/.firebaserc: `sjobo-sprakapp`) + **Firestore**
   (compat-sdk `firebase@10.13.2` bundle:ed i `sjobo.js`).
-- **Ingen byggrad**: `index.html` direkt i public/.
+- **Ingen byggrad**: `index.html` och `src/*.js` ligger i repo-roten och
+  Firebase Hosting publicerar roten (`"public": "."`). Det finns ingen `public/`.
 
 ## Struktur
 
@@ -63,6 +64,35 @@ Deploy-ström: `git push origin main`
 r:rad, k:kategori, a:atomer?, vk/v/p: metadata}` — kolla `.schema` om du ska
 skriva nytt. Notera: `sjobo-trasig.json` innehåller bara `items` (ingen
 `schema`), resten av JSON-filerna har schema.
+
+## Kontroll och rensning av data (17 okt 2026)
+
+- `data/sjobo.json` prövas mot publicerade sjobo.se med
+  `python3 scripts/kontroll/kontrollera_sjobo.py` (`--ny` hämtar om sajten,
+  cache och `pages.jsonl` är gitignorerade). Fel som finns kvar ligger kvar,
+  flyttade fel får ny adress och sidtitel från sidans `<title>`. Övriga flyttas
+  till `data/sjobo-borttagna.json` (med `orsak`) eller `data/sjobo-granska.json`
+  (inget förslag, bara metadata, URL-/jämförelsenoteringar). Appen läser inte de
+  två filerna. `scripts/kontroll/manuella-bedomningar.json` håller handgjorda
+  bedömningar (inte fel / stilförslag) som respekteras vid varje körning.
+  `generatedAt` sätts till kontrolltiden.
+- `index.html`: `applyDoneStateSnapshot()` ignorerar klarmarkeringar äldre än
+  `generatedAt` för sidor som fortfarande finns i datafilen (`arAterOppnad()`),
+  så de visas som öppna igen. Firestore ändras inte. Datumet i sidhuvudet sätts
+  från `generatedAt` i `init()`.
+- Skrapade kommuner (version 2-filer) rensas med
+  `python3 scripts/rensa_skrapning.py --alla`: nyheter, evenemang, bläddrings-
+  sidor, intranät, dubbletter (http/www, .printable, /link/), mallfel (samma fel
+  på ≥10 sidor och ≥3 % av sidorna, sparas i fältet `mallfel`), okända ord utan
+  förslag och radbrytningar som lästs som mellanslag tas bort. Tom länktext,
+  okända ord och H1 är inte längre akuta. Fältet `rensning` visar vad som
+  togs bort. Skriptet går att köra flera gånger och bör köras efter varje ny
+  skrapning.
+- `src/markera.js` (`markeraSkillnad`) markerar skillnaden mellan felaktig text
+  och förslag på ordnivå i felkorten. Ingen markering när förslaget är `–`
+  eller en instruktion.
+- `data/sjobo-sprakfel|redaktionellt|oklart|trasig.json` är en äldre uppdelning
+  av augustidatat och används inte av appen.
 
 ## Gotchas (verifierat)
 

@@ -1,0 +1,1315 @@
+{
+ "beskrivning": "Manuella bedömningar 17 okt 2026: alla 139 stavfel och ett slumpvis stickprov på 120 övriga fel. riktigt fel = ska rättas, stilförslag = valfritt, inte fel = ska inte visas som fel.",
+ "bedomningar": [
+  {
+   "u": "https://www.sjobo.se/jobb-och-arbetsmarknad/sommarjobb.html",
+   "f": "Varje sommar söker vi dig som vill göra meningsfull skillnad inom Sjöbos viktigaste sommarjobb",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/kommun-och-politik/trygg-och-saker/krisberedskap/sa-forbereder-du-dig-for-en-kris.html",
+   "f": "Här finns info och tips om vad du ska tänka på i din hemberedskap för att klara en kris i samhället - handbok, checklistor och hur du gör en krislåda",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/omsorg-och-stod/lss---lagen-om-stod-och-service-till-vissa-funktionshindrade/hur-ansoker-jag-om-stod.html",
+   "f": "En av handläggarnas viktigaste uppgift är att vägleda och informera",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/naringsliv-och-foretag/starta-och-driva-foretag/bredband-och-fiber.html",
+   "f": "Anslut dig till fibernätet för att kunna nyttja dagens och framtida tjänster på nätet",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/kommun-och-politik/moten-handlingar-och-protokoll/tekniska-namnden.html",
+   "f": "Här publiceras föredragningslista och protokoll från tekniska nämnden",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/kommun-och-politik/press-och-kommunikation/grafisk-manual-och-logotyper.html",
+   "f": "Läs den grafiska manualen där det beskrivs hur logotypen ska användas",
+   "bedomning": "inte fel"
+  },
+  {
+   "u": "https://www.sjobo.se/trafik-och-gator/gator/gatubelysning.html",
+   "f": "Sjöbo kommun ansvarar för en stor del av gatubelysningen i Sjöbo kommun",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/jobb-och-arbetsmarknad/att-jobba-hos-oss/mot-vara-medarbetare.html",
+   "f": "Stora och långsiktiga satsningar har gjorts, bland annat \"systematiskt kvalitetsarbete\" som handlar om utvärdering, dokumentation, analys och framåtsyftande mål, samt satsning på \"lösningsfokuserade arbetssätt\"",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/uppleva-och-gora.html",
+   "f": "I Sjöbo har vi ett le...",
+   "bedomning": "inte fel"
+  },
+  {
+   "u": "https://www.sjobo.se/naringsliv-och-foretag/mark-och-lokaler.html",
+   "f": "Markanvisning, exploatering, samt information om att arrendera eller köpa mark och lokaler",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/bygga-bo-och-miljo/min-bostad/avfall/farligt-avfall.html",
+   "f": "Mäklar eller handlar med farligt avfall",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/bygga-bo-och-miljo/min-bostad/avfall.html",
+   "f": "Som verksamhetsutövare ska du känna till vilka lagar och regler som gäller för verksamhetens avfallshantering. Du måste ...",
+   "bedomning": "inte fel"
+  },
+  {
+   "u": "https://www.sjobo.se/uppleva-och-gora/ungdomsaktiviteter.html",
+   "f": "Hilde Pettersson är ungdomscoach i Sjöbo och vill jättegärna höra vad du är intresserad av",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/bygga-bo-och-miljo/bygga-nytt-andra-eller-riva/bygglov-och-anmalan/sa-gar-det-till/tidsbegransat-bygglov.html",
+   "f": "En förlängning av ett tidsbegränsat bygglov innebär att nämnden prövar åtgärden på nytt och fattar ett nytt beslut - men något nytt start- och slutbesked behövs inte",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/uppleva-och-gora/idrott-motion-och-aktiviteter/ridslingor.html",
+   "f": "Ridslingan är avsedd för ridning, men ibland finns vandrare på spåret, så var rädda om varandra",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/utbildning-och-forskola/elevhalsa-stod-och-trygghet/trygghet.html",
+   "f": "Målet med det främjande arbetet är att skapa en trygg och tillitsfull arbetsmiljö för alla barn, elever och all personal, där alla barn/elever har maximala möjligheter att lära och utvecklas",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/uppleva-och-gora/bibliotek-i-sjobo-kommun.html",
+   "f": "Blentarps bibliotek ligger i anslutning till Storkskolan. Här kan du låna böcker, filmer och beställa tidskrifter. Du kan söka i sökdatorerna på plats, ta med din egen dator och studera eller leka och läsa i barnavdelningen",
+   "bedomning": "inte fel"
+  },
+  {
+   "u": "https://sjobo.se/naringsliv-och-foretag/upphandling-och-inkop/avslutade-upphandlingar.html",
+   "f": "använder sig Sjöbo kommun även av ramavtal som har tecknats av Skånes Kommuner, Adda Inköpscentral, Kammarkollegiet samt Sinfra",
+   "bedomning": "inte fel"
+  },
+  {
+   "u": "https://www.sjobo.se/jobb-och-arbetsmarknad/jobb-och-praktik-for-unga/feriearbete-lovjobb.html",
+   "f": "Du går bredvid ordinarie personal i någon av de verksamheter där vi erbjuderlovjobb",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/naringsliv-och-foretag/mark-och-lokaler/markanvisning-och-exploatering.html",
+   "f": "Grundprincipen för markanvisning i Sjöbo kommun är att alla skall ges möjlighet att komma med förslag",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/bygga-bo-och-miljo/allt-om-bygglov/svartbygge-olovligt-bygge.html",
+   "f": "Om du tror att någon exempelvis har börjat bygga utan bygglov eller om en tomt är skräpig, kan du göra en anmälan om det till oss - en tillsynsanmälan",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/utbildning-och-forskola/skolskjuts-i-sjobo/sakerhetsregler-for-skolskjuts.html",
+   "f": "Om vårdnadshavare ändrar sina kontaktuppgifter, ska hen informera skolan som uppdaterar register och meddelar berörd chaufför",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/utbildning-och-forskola/forskola-och-barnomsorg/forskolor-i-sjobo/tratofflans-forskola.html",
+   "f": "VOLLSJÖ, kommunal Trätofflans förskola ligger i Vollsjö",
+   "bedomning": "inte fel"
+  },
+  {
+   "u": "https://www.sjobo.se/bygga-bo-och-miljo/allt-om-bygglov/bygglovsprocessen.html",
+   "f": "När din ansökan kommit in gör vi en första granskning av de",
+   "bedomning": "inte fel"
+  },
+  {
+   "u": "https://www.sjobo.se/bygga-bo-och-miljo/bygga-nytt-andra-eller-riva/bygglov-och-anmalan/sa-gar-det-till/handlingar-och-exempelritningar.html",
+   "f": "Filen ska ha samma namn som handlingens innehåll. Till exempel ska filen med situationsplan ska heta \"situationsplan\"",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/naringsliv-och-foretag/mark-och-lokaler.html",
+   "f": "Sjöbo kommun har olika typer av arrenden där vi upplåter nyttjanderätt av kommunal mark till företag, privatpersoner ell...",
+   "bedomning": "inte fel"
+  },
+  {
+   "u": "https://www.sjobo.se/uppleva-och-gora/kultur-i-sjobo/kulturvandring.html",
+   "f": "Klicka på bilden för att höra om Gamla Torg/Gästgiveriet · Klicka på bilden för att höra om Gamla Torg/Kvarteret Nils · Klicka på bilden för att höra om Bränneriet/Sjöboverket · Klicka här för att höra om stationen och järnvägshotellet",
+   "bedomning": "inte fel"
+  },
+  {
+   "u": "https://www.sjobo.se/kommun-och-politik/sa-styrs-sjobo-kommun/kommunens-organisation.html",
+   "f": "Det är kommunens medborgare som röstar in förtroendevalda i kommunfullmäktige",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/bygga-bo-och-miljo/samhallsplanering/oversiktsplan.html",
+   "f": "Den kommunövergripande översiktsplan ska ange grunden för utvecklingen av den fysiska miljön",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/uppleva-och-gora/kulturskola/anmalan-och-avanmalan-kulturskolan.html",
+   "f": "Elev som slutar under pågående termin erlägger full avgift",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/uppleva-och-gora/ungdomsaktiviteter.html",
+   "f": "Vi träffas Floras Bageri",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/trafik-och-gator/torg-och-arrangemang/torghandel.html",
+   "f": "Tekniska förvaltningen behandlar dina personuppgifter för att kunna administrera din ansökan .",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/trafik-och-gator/gator/drift-och-ansvar-for-gator.html",
+   "f": "Detta är grundprinciperna för hastighetsgränserna:",
+   "bedomning": "inte fel"
+  },
+  {
+   "u": "https://www.sjobo.se/bygga-bo-och-miljo/hitta-bostad-och-tomt/lediga-tomter.html",
+   "f": "Sökande tackat nej, återtagit intresseanmälan, inte fullföljt köp eller inte besvarat två olika erbjudande om tomt inom det område/ort som ansökan avser och därmed avstått",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/arkiv/nyhetsarkiv/nyheter/2023-10-02-sjobo-far-en-kulturfest.html",
+   "f": "Fler gäster och evenemang kommer - programmet sätts just nu, så mer info allt eftersom!",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/omsorg-och-stod/stod-for-vuxna/missbruk-och-beroende.html",
+   "f": "Råd och stödenheten erbjuder individuell råd och stödkontakt till ungdomar",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/trafik-och-gator/gator/vintervaghallning-och-snorojning.html",
+   "f": "De ska hålls framkomliga",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/naringsliv-och-foretag/tillstand-regler-och-tillsyn/djur-och-lantbruk/godsel.html",
+   "f": "Gödsel och urin ska lagras i täta behållare eller på tätt underlag så att inte läckage förekommer till omgivande mark eller vatten",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://etjanster.sjobo.se/oversikt/overview/275",
+   "f": "Du identifierar dig på ett säkert sätt genom att logga in med BankID. Det innebär också att du när som helst kan spara och välja att fortsätta att fylla i vid ett senare tillfälle",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/kommun-och-politik/politik-och-demokrati/offentlighetsprincipen.html",
+   "f": "Du kan inte kringgå offentlighetsprincipen genom att skicka ett brev, i ett ärende som rör en kommunal fråga, till tjänstemän eller förtroendevalda politiker på deras hemadresser",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/trafik-och-gator/torg-och-arrangemang/torghandel.html",
+   "f": "Varor och annan utrustning skall vara bortplockad senast 30 minuter efter stängning",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/bygga-bo-och-miljo/odehus-blir-dromhus.html",
+   "f": "Tillsammans med Tomelilla och Ystad kommun, har vi drivit projekt ödehus",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/utbildning-och-barnomsorg/forskola-och-barnomsorg/fragor-och-svar-forskola.html",
+   "f": "Avgiften på din faktura baseras endast på hushållets gemensamma inkomster och inte på hur mycket eller lite som ditt barn vistas i fritidshemmet eller på förskolan (förutom om ditt barn har en avgiftsfri allmän förskola placering)",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/omsorg-och-stod/stod-och-hjalp-i-hemmet/trygghetslarm.html",
+   "f": "Man behöver lämna från sig nycklar men oftast är det bara en. Vi sätter upp en nyckelgömma på dörren där vi monterar er nyckel i",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/bygga-bo-och-miljo/odehus-blir-dromhus/en-odehusraddare-berattar-och-tipsar.html",
+   "f": "Hon har en passionerad entusiasm för gamla hus",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/bygga-bo-och-miljo/min-bostad/avfall/avfallsabonnemang-och-priser-for-hushall.html",
+   "f": "Om din fastighet inte ska nyttjas under en sammanhängande period om 12 månader kan du söka om uppehåll i hämtning av kommunalt avfall (sopor och slam)",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/kommun-och-politik/trygg-och-saker/krisberedskap/vma---viktigt-meddelande-till-allmanheten.html",
+   "f": "På SVT:s Text-TV sidan 100 anges när en VMA-situation pågår och hänvisas för mer information till Text-TV sidan 599",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/omsorg-och-stod/stod-for-vuxna.html",
+   "f": "Du som har en beroendeproblematik kan få stöd och hjälp. Det finns olika typer av insatser beroende på vilken typ av ska...",
+   "bedomning": "inte fel"
+  },
+  {
+   "u": "https://www.sjobo.se/trafik-och-gator/gator/vintervaghallning-och-snorojning.html",
+   "f": "Om du har synpunkter på snöröjningen ska du felanmäla det via vårt felanmälanssystem för teknisk service",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/kommun-och-politik/trygg-och-saker/brottsforebyggande-arbete/kameraovervakning-i-sjobo-kommun.html",
+   "f": "jobbar hårt för att kommuninvånarna ska vara och känna sig trygga",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/utbildning-och-barnomsorg/grundskola/grundskolor-i-kommunen/farsingaskolan/om-oss.html",
+   "f": "Vi vill tillsammans, skolledning och medarbetare i samarbete med eleverna utveckla vår skola att med glädje och gemenskap ha spaning på framtiden och ge bästa förutsättningar för våra elever att lyckas",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/jobb-och-arbetsmarknad/jobb-och-praktik-for-unga.html",
+   "f": "Du behöver inga förkunskaper eller en färdig...",
+   "bedomning": "inte fel"
+  },
+  {
+   "u": "https://www.sjobo.se/trafik-och-gator/gator/gatubelysning.html",
+   "f": "I Sjöbo kommun finns även andra anläggningsägare varav Trafikverket är störst",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/naringsliv-och-foretag/tillstand-regler-och-tillsyn/sjalvservice-foretag.html",
+   "f": "Självservice företag (titel)",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/bygga-bo-och-miljo/min-bostad/buskar-och-hackar.html",
+   "f": "Häckar och buskar - tips och regler, broschyr",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/bygga-bo-och-miljo/bygga-nytt-andra-eller-riva/fasadandring.html",
+   "f": "exempelvis måla om ditt hus, byta takmaterial eller sätt in ett nytt fönster",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/naringsliv-och-foretag/tillstand-regler-och-tillsyn/servering-av-alkohol.html",
+   "f": "Serveringstillstånd alkohol - ansökan och information",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/uppleva-och-gora/idrott-motion-och-aktiviteter.html",
+   "f": "Dans, boxning, filmvisning, ridsport, biodling, teater, försvarsutbildning, fotboll och mycket mer - här hittar du en fö...",
+   "bedomning": "inte fel"
+  },
+  {
+   "u": "https://www.sjobo.se/bygga-bo-och-miljo/min-bostad/avfall/avfallsabonnemang-for-verksamheter.html",
+   "f": "Trädgårdsavfall ska inte läggas i kärl för kommunalt avfall, utan ska förvaras skilt från annat avfall, för särskilt omhändertagande",
+   "bedomning": "inte fel"
+  },
+  {
+   "u": "https://www.sjobo.se/omsorg-och-stod/stod-for-vuxna/psykisk-halsa/sysselsattning.html",
+   "f": "Det är viktigt att du inte behöver stå till arbetsmarknadens förfogande, utan att sysselsättningen ska anpassas efter dina behov och förutsättningar",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/trafik-och-gator/gator/parkering.html",
+   "f": "Regeln gäller inte dag före sön- eller helgdag och sön- och helgdag",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/kommun-och-politik/fakta-om-sjobo/kommunens-ekonomi.html",
+   "f": "Här finns kommunens budget, samt uppföljning av hur innevarande år gått och hur förra året gick",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/jobb-och-arbetsmarknad/att-jobba-hos-oss/mot-vara-medarbetare.html",
+   "f": "Skapa ordning och struktur i klassrummet, men också att kunna vara en vuxen för eleven när den behöver någon som lyssnar och bryr sig",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/bygga-bo-och-miljo/bygga-nytt-andra-eller-riva/fasadandring.html",
+   "f": "Ska man byta till något som är liknande det man redan har så behöver man oftast inte ansöka om bygglov",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/naringsliv-och-foretag/tillstand-regler-och-tillsyn/djur-och-lantbruk/slamspridning.html",
+   "f": "För att förhindra felaktig hantering vid spridning av avloppsslam på åkermark med en negativ miljöbelastning som följd, finns följande rutiner om vad som gäller vid slamspridning inom Sjöbo kommun",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/trafik-och-gator/torg-och-arrangemang/torghandel.html",
+   "f": "Elkablar skall märkas och placeras på ett sätt att de inte utgör fara eller hinder",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/omsorg-och-stod/stod-for-vuxna/psykisk-halsa/personligt-ombud.html",
+   "f": "Om du är 18 år och uppåt, har en långvarig psykisk ohälsa som påverkar det dagliga livet kan du få ett personligt ombud",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/ovrigt/kontakta-oss/vara-blanketter.html",
+   "f": "Utformningspolicy för ramper i publik miljö_fullständig rapport.pdf , 6.6 MB",
+   "bedomning": "inte fel"
+  },
+  {
+   "u": "https://www.sjobo.se/bygga-bo-och-miljo/bygga-nytt-andra-eller-riva/bygglov-och-anmalan/sa-gar-det-till/tidsbegransat-bygglov.html",
+   "f": "Åtgärden måste ha en tillfällig karaktär och ansökan måste gälla ett tidsbegränsat bygglov",
+   "bedomning": "inte fel"
+  },
+  {
+   "u": "https://www.sjobo.se/omsorg-och-stod/halso--och-sjukvard/habilitering.html",
+   "f": "Habiliteringen i kommunen ansvarar för individuella insatser för dig som är född 1974 eller tidigare",
+   "bedomning": "inte fel"
+  },
+  {
+   "u": "https://www.sjobo.se/utbildning-och-forskola/forskola-och-barnomsorg/ansokan-regler-och-avgifter-forskola.html",
+   "f": "I en kommun som tillämpar maxtaxa så gäller detta",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/bygga-bo-och-miljo/naturvard.html",
+   "f": "$error (visas synligt i sidans innehåll)",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/bygga-bo-och-miljo/allt-om-bygglov/bygglovsprocessen.html",
+   "f": "### **Webbutbildning: byggregler och kontrollsystem i praktiken**",
+   "bedomning": "inte fel"
+  },
+  {
+   "u": "https://www.sjobo.se/bygga-bo-och-miljo/min-bostad/avfall/avfallsabonnemang-och-priser-for-hushall.html",
+   "f": "Hämtning sker var 14:e dag under perioden mars - november",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/kommun-och-politik/trygg-och-saker/brottsforebyggande-arbete/kommunens-brottsforebyggande-arbete.html",
+   "f": "information om lokala BRÅ",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/uppleva-och-gora/ungdomsaktiviteter.html",
+   "f": "Uppladdning från kl 15.00",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/jobb-och-arbetsmarknad.html",
+   "f": "spännande och utvecklande jobb inom  många olika yrkesområden",
+   "bedomning": "inte fel"
+  },
+  {
+   "u": "https://www.sjobo.se/trafik-och-gator/gator/parkering.html",
+   "f": "vardagar mellan 22.00 - 06.00,  lördagar mellan 00.00 - 24.00",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/naringsliv-och-foretag/tillstand-regler-och-tillsyn/halsoskydd-i-lokaler.html",
+   "f": "Kostnad för anmälan om att driva en anmälningspliktig verksamhet baseras på handläggningstid per timme enligt av kommunfullmäktige beslutade miljötaxa. , 552.6 kB, öppnas i nytt fönster.",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/utbildning-och-forskola/sjobo-utbildningscentrum/vuxenutbildningen/utbildning-i-svenska-for-invandrare.html",
+   "f": "Ansökan till SFI, pdf , 92.1 kB, öppnas i nytt fönster. Application for SFI, pdf , 92.2 kB",
+   "bedomning": "inte fel"
+  },
+  {
+   "u": "https://www.sjobo.se/arkiv/nyhetsarkiv/nyheter/2025-11-30-nya-regler-for-bygglov---det-galler-fran-1-december-2025.html",
+   "f": "kvm (förekommer flera gånger)",
+   "bedomning": "inte fel"
+  },
+  {
+   "u": "https://www.sjobo.se/uppleva-och-gora/kultur-i-sjobo/flora-biografteater/knattefilmklubben.html",
+   "f": "Kontakt angående knattefilmklubben 0416 - 271 66",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/trafik-och-gator/gator.html",
+   "f": "0416 - 270 00",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/uppleva-och-gora/ungdomsaktiviteter.html",
+   "f": "Är du mellan 12-19 år ... 13-16 år ... 12 - 19 år",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/bygga-bo-och-miljo/samhallsplanering.html",
+   "f": "hur Sjöbo kommun ska utvecklas på kort och lång sikt",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/uppleva-och-gora.html",
+   "f": "ät gott eller.... ja du har mycket att välja på",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/bygga-bo-och-miljo/djur-och-lantbruk/lantbruksinspektion.html",
+   "f": "URL: /bygga-bo-och-miljo/djur-och-lantbruk/lantbruksinspektion.html (under bygga-bo-och-miljo) men resten av djur-och-lantbruk-sidorna ligger under /naringsliv-och-foretag/tillstand-regler-och-tillsyn/djur-och-lantbruk/",
+   "bedomning": "inte fel"
+  },
+  {
+   "u": "https://www.sjobo.se/naringsliv-och-foretag/mark-och-lokaler/verksamhetsmark.html",
+   "f": "Riktlinjer för markanvisning och exploateringsavtal (677.8 kB) Regler och avgifter för fördelning och tilldelning av verksamhetsmark i Sjöbo kommun (627.3 kB)",
+   "bedomning": "inte fel"
+  },
+  {
+   "u": "https://www.sjobo.se/uppleva-och-gora/ungdomsaktiviteter.html",
+   "f": "Klockan 15,45-16,45 ... klockan 15,15",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://sjobo.se/ovrigt/kontakta-oss/vara-blanketter.html",
+   "f": "Nyhetsbrev 2021.pdf , 206.9 kB",
+   "bedomning": "inte fel"
+  },
+  {
+   "u": "https://www.sjobo.se/arkiv/nyhetsarkiv/nyheter/2020-04-17-kostnadsfri-energi--och-klimatradgivning.html",
+   "f": "telefon 0415-378303",
+   "bedomning": "inte fel"
+  },
+  {
+   "u": "https://www.sjobo.se/bygga-bo-och-miljo/min-bostad/avfall/kommunalt-avfall/slamtomning-enskilt-avlopp.html",
+   "f": "Informationsbroschyr om fosforfiltertömning , 3.3 MB",
+   "bedomning": "inte fel"
+  },
+  {
+   "u": "https://www.sjobo.se/kommun-och-politik/moten-handlingar-och-protokoll/vard--och-omsorgsnamnden.html",
+   "f": "I möteskalendern finns en årsplan för alla möten under 2025",
+   "bedomning": "inte fel"
+  },
+  {
+   "u": "https://www.sjobo.se/kommun-och-politik/priser-och-stipendier.html",
+   "f": "Sjöbo kommun delar årligen ut priser och stipendier - Årets ambassadör, hållbarhetspriset, ungdomsstipendier inom kultur och fritid, ledarstipendium, arkitekturpris och kulturpris",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/trafik-och-gator/kollektivtrafik-och-resor.html",
+   "f": "Köpenhamn når du med bil på cirka 1 tim",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/omsorg-och-stod/funktionsnedsattning.html",
+   "f": "LSS Fritidsverksamhet (med versalt F)",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/uppleva-och-gora/idrott-motion-och-aktiviteter/boka-lokal-sporthall-och-idrottsplats.html",
+   "f": "Boka lokal, sporthall och idrottsplats (titel) vs Boka lokal, sporthall eller idrottsplats (i innehåll)",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/naringsliv-och-foretag/starta-och-driva-foretag/stod-och-radgivning-for-foretagare.html",
+   "f": "Två parallella sidor med nästan identiskt innehåll: 'Stöd och rådgivning' (/stod-och-radgivning.html) vs 'Stöd och rådgivning för företagare' (/stod-och-radgivning-for-foretagare.html)",
+   "bedomning": "inte fel"
+  },
+  {
+   "u": "https://www.sjobo.se/uppleva-och-gora/bibliotek-i-sjobo-kommun.html",
+   "f": "alla dagar 8 - 22 (med mellanslag, om Blentarp/Lövestad) vs 8-22 varje dag (utan mellanslag, om Sjöbo bibliotek)",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/naringsliv-och-arbete/for-dig-som-ar-foretagare/tillstand-regler-och-tillsyn.html",
+   "f": "URL: /naringsliv-och-arbete/for-dig-som-ar-foretagare/tillstand-regler-och-tillsyn.html",
+   "bedomning": "inte fel"
+  },
+  {
+   "u": "https://www.sjobo.se/kommun-och-politik/borgerlig-vigsel.html",
+   "f": "\"Intyg hindersprövning\" och \"Intyg vigsel\"",
+   "bedomning": "inte fel"
+  },
+  {
+   "u": "https://www.sjobo.se/bygga-bo-och-miljo/min-bostad/avfall/farligt-avfall.html",
+   "f": "ICA Nära Hansson i Lövestad (i text) vs ICA Nära Hanssons i Lövestad (i annat stycke)",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/omsorg-och-stod/halso--och-sjukvard.html",
+   "f": "Nationell Patientöversikt NPÖ (rubrik) vs Nationell patientöversikt (NPÖ) (preview-text)",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/kommun-och-politik/kommunens-organisation/samarbeten.html",
+   "f": "Ystad kommun (denna sida) vs Ystads kommun (övriga sajten)",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/omsorg-och-stod/halso--och-sjukvard/hjalpmedel.html",
+   "f": "Hälso- och Sjukvårdslagen (HSL)",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://sjobo.se/naringsliv-och-foretag/tillstand-regler-och-tillsyn/livsmedel.html",
+   "f": "URL: sjobo.se utan www. (samma sak gäller även Driva livsmedelsanläggning, Livsmedelskontroll, Matförgiftad)",
+   "bedomning": "inte fel"
+  },
+  {
+   "u": "https://www.sjobo.se/naringsliv-och-foretag/evenemang-och-natverk-for-foretagare/foretagarforeningar-och-natverk.html",
+   "f": "Företagarföreningar (titel) vs företagsföreningar (i metadescription)",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/uppleva-och-gora/kulturskola/om-kulturskola.html",
+   "f": "Sjöbo kulturskolas (gement k) vs Kulturskolan (versalt K, samma sida)",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/utbildning-och-forskola/grundskola-och-fritidshem/lasarstider-grundskolan.html",
+   "f": "Studiedag/stängdag (tabell 25/26) vs K-dag/stängdag (tabell 26/27)",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/kommun-och-politik/fakta-om-sjobo/kartor-sjobo-kommun.html",
+   "f": "Kartor Sjöbo kommun (titel) vs Kartportalen Sjöbo kommun (i texten)",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/bygga-bo-och-miljo/bygga-nytt-andra-eller-riva/bygglov-och-anmalan/sa-gar-det-till/handlingar-och-exempelritningar.html",
+   "f": "fackmässigt gjorda (intro) vs fackmannamässigt utförda (under rubrik Fackmässiga ritningar)",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://sjobo.se/naringsliv-och-foretag/upphandling-och-inkop/avslutade-upphandlingar.html",
+   "f": "URL: sjobo.se (utan www) vs www.sjobo.se",
+   "bedomning": "inte fel"
+  },
+  {
+   "u": "https://www.sjobo.se/uppleva-och-gora/idrott-motion-och-aktiviteter/vandring--motion.html",
+   "f": "Roshusslingan 3,9 km – Naturstig och grusväg vs Bäckslingan 2,3 km – Kuperad slinga vs Kejsarslingan 1,6 km Naturstig vs Gydarpslingan 3,7 km Både naturstig",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/arkiv/nyhetsarkiv/nyheter/2021-06-18-hurra-for-vollsjo-bibliotek.html",
+   "f": "varje dag mellan 10 - 22 (på denna sida) vs alla dagar 8 - 22 (på Bibliotek-sidan)",
+   "bedomning": "inte fel"
+  },
+  {
+   "u": "https://www.sjobo.se/trafik-och-gator/kollektivtrafik-och-resor.html",
+   "f": "m fl (NO 1 och NO 2) vs mfl (NO 3, 4, 7-10) – båda former används",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/utbildning-och-forskola/elevhalsa-stod-och-trygghet/elevhalsa.html",
+   "f": "070-9946883 (utan mellanslag) vs 0416-274 31 (med mellanslag) vs 070-994 68 83 (på Kontakta elevhälsan)",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/omsorg-och-stod/akut-hjalp.html",
+   "f": "sök Sociala Jouren Syd (rubrik säger sociala jouren syd)",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/utbildning-och-barnomsorg/forskola-och-barnomsorg/fragor-och-svar-forskola.html",
+   "f": "URL: /utbildning-och-barnomsorg/forskola-och-barnomsorg/fragor-och-svar-forskola.html",
+   "bedomning": "inte fel"
+  },
+  {
+   "u": "https://www.sjobo.se/bygga-bo-och-miljo/min-bostad/avfall/farligt-avfall.html",
+   "f": "insamlingsskåpet \"Samlaren\" (raka citat) vs insamlingsskåpet ”Samlaren” (typografiska citat)",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/naringsliv-och-foretag/evenemang-och-natverk-for-foretagare/foretagsfrukost.html",
+   "f": "Kommunhuset vs kommunhuset på samma sida",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/omsorg-och-stod/akut-hjalp.html",
+   "f": "Vid våld, förtyck, prositution och människohandel 116 016",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/arkiv/nyhetsarkiv/nyheter/2026-04-30-sjobo-kulturskola-startar-nya-kurser-i-serieteckning.html",
+   "f": "Redan i dag håller kulturskulan kurs i serieteckning",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/bygga-bo-och-miljo/allt-om-bygglov/bygglovsprocessen.html",
+   "f": "din anmälan eller lovsansökan direkt",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/bygga-bo-och-miljo/allt-om-bygglov/forhandsbesked.html",
+   "f": "Det är ett ärende du ansöker om och betlar en avgift för",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/bygga-bo-och-miljo/allt-om-bygglov/forhandsbesked.html",
+   "f": "Det här provas vid förhandsbesked (rubrik)",
+   "bedomning": "riktigt fel",
+   "anm": "inte stavfel"
+  },
+  {
+   "u": "https://www.sjobo.se/bygga-bo-och-miljo/allt-om-bygglov/forhandsbesked.html",
+   "f": "väsentligt ändrad användning av befintligt byggnad eller liknade",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/trafik-och-gator/ersattningsansprak-mot-sjobo-kommun.html",
+   "f": "hur det till exempel ser ut ser ut på den aktuella platsen och väderförhållanden",
+   "bedomning": "riktigt fel",
+   "anm": "inte stavfel"
+  },
+  {
+   "u": "https://www.sjobo.se/kommun-och-politik/borgerlig-vigsel.html",
+   "f": "Önskemål om vigselförättare",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/kommun-och-politik/borgerlig-vigsel.html",
+   "f": "Ni får all information av Skattemyndigheten",
+   "bedomning": "riktigt fel",
+   "anm": "inte stavfel"
+  },
+  {
+   "u": "https://www.sjobo.se/kommun-och-politik/borgerlig-vigsel.html",
+   "f": "det ska skickas skrivas ut, fyllas i och skickas tillbaka",
+   "bedomning": "riktigt fel",
+   "anm": "inte stavfel"
+  },
+  {
+   "u": "https://www.sjobo.se/kommun-och-politik/borgerlig-vigsel.html",
+   "f": "i samråd med vigselförrättaren vlja en annan plats",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/uppleva-och-gora/sjobo-och-mikaeli-marknad.html",
+   "f": "Klicka på den gröna symbolen som finns längs ned till höger",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/uppleva-och-gora/sjobo-och-mikaeli-marknad.html",
+   "f": "Epost: support@bokamarknad.se",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/utbildning-och-forskola/grundskola-och-fritidshem/lasarstider-grundskolan.html",
+   "f": "Fre 7 Maj | Lov",
+   "bedomning": "riktigt fel",
+   "anm": "inte stavfel"
+  },
+  {
+   "u": "https://www.sjobo.se/uppleva-och-gora/bibliotek-i-sjobo-kommun.html",
+   "f": "E-post biblioteke (länktext)",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/utbildning-och-forskola/skolskjuts-i-sjobo.html",
+   "f": "Telefon nummer till bussarn",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/utbildning-och-forskola/skolskjuts-i-sjobo.html",
+   "f": "Malena gymnasiets expedition",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/uppleva-och-gora/idrott-motion-och-aktiviteter.html",
+   "f": "letar efter en samlinglokal eller sporthall",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/uppleva-och-gora/kultur-i-sjobo.html",
+   "f": "skulpturpark, kulturfest och mycker mer",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/uppleva-och-gora/kultur-i-sjobo.html",
+   "f": "Sjöbo konsthall, Biografteatern Flora, muséet Elfstrands, skulpturpark, kulturfest och mycker mer",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/uppleva-och-gora/kultur-i-sjobo.html",
+   "f": "muséet Elfstrands",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/omsorg-och-stod/funktionsnedsattning.html",
+   "f": "Här samlar vi fritidsaktiviter för dig",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/bygga-bo-och-miljo/min-bostad/vatten-och-avlopp.html",
+   "f": "som på ett eller annat sätt kan kan påverka tillgängligheten",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/bygga-bo-och-miljo/samhallsplanering.html",
+   "f": "detaljplaner och översiktplaner som visar",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/trafik-och-gator/gator/vintervaghallning-och-snorojning.html",
+   "f": "annat för gångtrafiken erfoderligt utrymme utanför fastigheten",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/trafik-och-gator/gator/vintervaghallning-och-snorojning.html",
+   "f": "renhållningsåtgärder ifråga om gångbana och annat för gångtrafiken erfoderligt utrymme utanför fastigheten",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/bygga-bo-och-miljo/miljo-och-hallbarhet.html",
+   "f": "stark koppling till arbetet med exempelvis folkhälsa och översiktplan",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/omsorg-och-stod/dodsfall-och-begravning.html",
+   "f": "finns ett begravningombud att vända sig till",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/bygga-bo-och-miljo/min-bostad/eldning.html",
+   "f": "Även stubbar och vedavfall i form av exempelvis grenar räknas om trädgårdsavfall",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/bygga-bo-och-miljo/min-bostad/eldning.html",
+   "f": "räknas om trädgårdsavfall",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/omsorg-och-stod/halso--och-sjukvard.html",
+   "f": "Information för dig som behöver hemsjukvård, rehabiltering och tandvård",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/omsorg-och-stod/halso--och-sjukvard.html",
+   "f": "Information för dig som behöver hemsjukvård, rehabiltering och tandvård",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/omsorg-och-stod/halso--och-sjukvard/hjalpmedel.html",
+   "f": "Postadress: 273 31 Sjöbo",
+   "bedomning": "riktigt fel",
+   "anm": "inte stavfel"
+  },
+  {
+   "u": "https://www.sjobo.se/kommun-och-politik/press-och-kommunikation/sjobo-kommun-i-sociala-medier.html",
+   "f": "Sjöbos kommun",
+   "bedomning": "riktigt fel",
+   "anm": "inte stavfel"
+  },
+  {
+   "u": "https://www.sjobo.se/kommun-och-politik/fakta-om-sjobo/det-har-ar-sjobo-kommun.html",
+   "f": "svensk mästare i motorcross",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/kommun-och-politik/politik-och-demokrati.html",
+   "f": "den andra söndagen i september vart fjärde år. Nästa al...",
+   "bedomning": "inte fel"
+  },
+  {
+   "u": "https://www.sjobo.se/kommun-och-politik/sa-styrs-sjobo-kommun.html",
+   "f": "Kommunens verksamhet är organiserad i f em förvaltningar",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/omsorg-och-stod/stod-till-barn-och-ungdom.html",
+   "f": "Du som går på högstadeiet eller gymnasiet",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/omsorg-och-stod/ekonomi-och-radgivning.html",
+   "f": "Om du inte kan försörja dig själv och din familj kan du ha rätt till försörjningstöd",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/bygga-bo-och-miljo/odehus-blir-dromhus.html",
+   "f": "Snickargården - början på en dröm del 1",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/uppleva-och-gora.html",
+   "f": "skatebord",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/uppleva-och-gora.html",
+   "f": "skulpturpark, kulturfest och mycker mer",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/uppleva-och-gora.html",
+   "f": "Sjöbo konsthall, Biografteatern Flora, museet Elfstrands, skulpturpark, kulturfest och mycker mer",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/uppleva-och-gora/fritidsbiblioteket.html",
+   "f": "Kickbikes, skridskor, golfutrustning, skatebord, fiskeutrustning",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/uppleva-och-gora/fritidsbiblioteket.html",
+   "f": "Kickbikes, skridskor, golfutrustning, skatebord, fiskeutrustning",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/trafik-och-gator/gator/gatubelysning.html",
+   "f": "ska du kontaktaSjöbohem",
+   "bedomning": "riktigt fel",
+   "anm": "inte stavfel"
+  },
+  {
+   "u": "https://www.sjobo.se/bygga-bo-och-miljo/min-bostad/boendemiljo.html",
+   "f": "Säta upp skrämselanordningar",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/kommun-och-politik/politik-och-demokrati/offentlighetsprincipen.html",
+   "f": "brev, fax, e-post mer mera",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/bygga-bo-och-miljo/kart--och-mattjanster.html",
+   "f": "En situationplan kan baseras på en nybyggnadskarta eller ett kartudrag från kommunen",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/bygga-bo-och-miljo/min-bostad/avfall/fyrfackskarl.html",
+   "f": "Omlastingscentralen gör att vi minskar både körsträckor och körtider",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/kommun-och-politik/trygg-och-saker/krisberedskap.html",
+   "f": "Kan du hantera en situation när det det inte finns el eller vatten under flera timmar",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/kommun-och-politik/trygg-och-saker/din-sakerhet.html",
+   "f": "På trafikverkets kart kan du få information om trafikläget",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/bygga-bo-och-miljo/allt-om-bygglov/avgifter-och-taxor-i-byggprocessen.html",
+   "f": "I vissa fall tas ven en planavgift ut",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/bygga-bo-och-miljo/allt-om-bygglov/olika-typer-av-lov-och-tillstand.html",
+   "f": "skicka in anmölan",
+   "bedomning": "inte fel"
+  },
+  {
+   "u": "https://www.sjobo.se/bygga-bo-och-miljo/bygga-nytt-andra-eller-riva/fasadandring.html",
+   "f": "berorende på om ändringen väsentligt ändrar",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/bygga-bo-och-miljo/bygga-nytt-andra-eller-riva/fasadandring.html",
+   "f": "Bygglovenhetens",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/omsorg-och-stod/stod-for-vuxna/fri-fran-vald.html",
+   "f": "En vecka fri från våld är ett nationellt initiativ som ordnas för att belysa det förbyggande arbete",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/kommun-och-politik/sa-styrs-sjobo-kommun/forvaltningar.html",
+   "f": "Kommunens verksamhet är organiserad i f em förvaltningar",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/trafik-och-gator/torg-och-arrangemang/bidrag-till-forskoning-och-julgran.html",
+   "f": "Ansökan sker vi föreningsregistret",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/naringsliv-och-foretag/evenemang-och-natverk-for-foretagare/foretagarforeningar-och-natverk.html",
+   "f": "företagarna i vår byggd",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/jobb-och-arbetsmarknad/jobb-och-praktik-for-unga/feriearbete-lovjobb.html",
+   "f": "hur det r att driva ett eget företag",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/jobb-och-arbetsmarknad/att-jobba-hos-oss/mot-vara-medarbetare.html",
+   "f": "silivasyster",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/bygga-bo-och-miljo/min-bostad/vatten-och-avlopp/driftinformation.html",
+   "f": "Här visas driftstörningar och pågående arbeten som på ett eller annat sätt kan kan påverka tillgängligheten",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/bygga-bo-och-miljo/kart--och-mattjanster/nybyggnadskarta-och-kartutdrag.html",
+   "f": "En situationplan kan baseras på en nybyggnadskarta eller ett kartudrag från kommunen",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/bygga-bo-och-miljo.html",
+   "f": "Här finns detaljplaner och översiktplaner som visar hur Sjöbo kommun ska utvecklas",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/ovrigt/kontakta-oss.html",
+   "f": "maila Sjöbo kommun, maila Sjöbo kommun",
+   "bedomning": "inte fel"
+  },
+  {
+   "u": "https://www.sjobo.se/utbildning-och-forskola/grundskola-och-fritidshem/grundskolor-i-sjobo/anpassad-grundskola.html",
+   "f": "de grundläggande dem okratiska värderingar",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/naringsliv-och-foretag/starta-och-driva-foretag/bredband-och-fiber.html",
+   "f": "Sjöbo kommun har tecknat en avsiktförklaring om fiberutbyggnad",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/naringsliv-och-foretag/mark-och-lokaler/verksamhetsmark.html",
+   "f": "utfärds köpebrev",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/trafik-och-gator/gator/sopning.html",
+   "f": "När vinterberedskapen är över sopar vi upp makadamen och återanvänder den, tex som uppfyllnadsmaterial vid ledningsarbet",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/trafik-och-infrastruktur/gravtillstand-och-ta-plan.html",
+   "f": "Du hittar grävbestämelserna längst ner på sidan",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/trafik-och-infrastruktur/gravtillstand-och-ta-plan.html",
+   "f": "Har du inte ansökt om grävtillstånd tidigare kontakar du teknik@sjobo.se så hjälper vi dig",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/omsorg-och-stod/funktionsnedsattning/personlig-assistans.html",
+   "f": "Vi räknar med att kriterier och vilka som omfattas kommer att justeras succesivt",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/omsorg-och-stod/lss---lagen-om-stod-och-service-till-vissa-funktionshindrade/rad-och-stod.html",
+   "f": "Kontakta Region Skåne för att ansöka om Råd och stöd på telefo 0771-22 23 40",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/omsorg-och-stod/lss---lagen-om-stod-och-service-till-vissa-funktionshindrade/hur-ansoker-jag-om-stod.html",
+   "f": "När du ansöker om LSS insatsers",
+   "bedomning": "riktigt fel",
+   "anm": "inte stavfel"
+  },
+  {
+   "u": "https://www.sjobo.se/utbildning-och-forskola/grundskola-och-fritidshem/grundskolor-i-sjobo/farsingaskolan.html",
+   "f": "upplägget är framgångrikt",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/utbildning-och-forskola/grundskola-och-fritidshem/grundskolor-i-sjobo/sandbacksskolan.html",
+   "f": "eleverna tar upp synpunker från klassråden",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/utbildning-och-barnomsorg/grundskola/grundskolor-i-kommunen/sandbacksskolan/sa-arbetar-vi.html",
+   "f": "Sandbcksskolan Undermeny för Sandbäcksskolan",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/utbildning-och-barnomsorg/grundskola/grundskolor-i-kommunen/sandbacksskolan/sa-arbetar-vi.html",
+   "f": "I familjeförförvaltningen pågår en omfattande kompetenssatsning",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/omsorg-och-stod/aldre-och-seniorer/hemtjanst/digital-hemtjanst.html",
+   "f": "Digitala besök i hemtjänsten innebär att våra kunder som är beviljade hemtjänstinsater kan få omsorgsbesök via digitala besök",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/utbildning-och-forskola/grundskola-och-fritidshem/grundskolor-i-sjobo/storkskolan.html",
+   "f": "funktionshinder eller sexuell läggning",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/arkiv/nyhetsarkiv/nyheter/2023-04-25-i-sjobo-ar-samverkan-vagen-till-basta-skolan.html",
+   "f": "har rektorer, pedagoger och elever på Emanuelskolan, Vollsjö skola och Försingaskolan under det senaste året arbetat",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/bygga-bo-och-miljo/min-bostad/avfall/kommunalt-avfall/slamtomning-enskilt-avlopp.html",
+   "f": "Avfallsförskrifter för Sjöbo kommun (1.3 MB)",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/omsorg-och-stod/halso--och-sjukvard/hemsjukvard.html",
+   "f": "Information för dig som behöver hemsjukvård, rehabiltering och tandvård",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/omsorg-och-stod/funktionsnedsattning/daglig-verksamhet.html",
+   "f": "Skapandegrupp, här arbetar man främst med kerativa uppgifter där personens intresse styr innehållet",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/omsorg-och-stod/funktionsnedsattning/daglig-verksamhet.html",
+   "f": "wellpapkartonger",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/uppleva-och-gora/kulturskola/kulturskolans-amnen.html",
+   "f": "i tex. arrangörskap",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/uppleva-och-gora/kulturskola/kulturskolans-amnen.html",
+   "f": "drop-ut",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/uppleva-och-gora/kulturskola/kulturskolans-amnen.html",
+   "f": "samt Storksskolan, Blentarp",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/uppleva-och-gora/kulturskola/anmalan-och-avanmalan-kulturskolan.html",
+   "f": "erlägger full avgift",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/arkiv/nyhetsarkiv/nyheter/2023-10-02-sjobo-far-en-kulturfest.html",
+   "f": "Kulturprogam Sjöbo kommun 2023",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/bygga-bo-och-miljo/hitta-bostad-och-tomt/lediga-tomter.html",
+   "f": "För att bli komma med på tomtkölistan",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/bygga-bo-och-miljo/hitta-bostad-och-tomt/lediga-tomter.html",
+   "f": "Förnyelseblankettsom",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/kommun-och-politik/sa-styrs-sjobo-kommun/rad-och-forum.html",
+   "f": "Håkan Fröjd, livsmedelsindustri, Source Food, samt Fretagarna Sjöbo",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/naringsliv-och-arbete/for-dig-som-ar-foretagare/foretagarforeningar-natverk-och-projekt.html",
+   "f": "fyra Skånska kommuner",
+   "bedomning": "riktigt fel",
+   "anm": "inte stavfel"
+  },
+  {
+   "u": "https://www.sjobo.se/naringsliv-och-foretag/tillstand-regler-och-tillsyn/halsoskydd-i-lokaler.html",
+   "f": "Om du startar verksamheten utan att anmäla det kommer samhällsbyggnämnden att ta beslut om en miljösanktionsavgift",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/naringsliv-och-foretag/tillstand-regler-och-tillsyn/tobak.html",
+   "f": "Ystad- Österlenregionens miljöförbund",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://sjobo.se/naringsliv-och-foretag/tillstand-regler-och-tillsyn/livsmedel.html",
+   "f": "Här finns resultatet av miljöenhetens inspektioner, utryckt i smileys",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/naringsliv-och-foretag/tillstand-regler-och-tillsyn/forbranningsanlaggning.html",
+   "f": "Dessa anläggningar omfattas förutom miljöbalken(1998:808) och miljöprövningsförordningen (2013:251) även av Förordning ommedelstora förbränningsanläggningar (2018:471)",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/naringsliv-och-foretag/tillstand-regler-och-tillsyn/forbranningsanlaggning.html",
+   "f": "Förordning ommedelstora förbränningsanläggningar",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/naringsliv-och-foretag/tillstand-regler-och-tillsyn/livsmedel/spillfett.html",
+   "f": "Auktorisationavtal för insamling av spillfett",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/utbildning-och-forskola/sjobo-utbildningscentrum/vuxenutbildningen/provning.html",
+   "f": "En prövning består av både en skriftlig och muntlig del och i vissa fall även labarationsrapporter som ska bifogas den skriftliga delen",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/utbildning-och-forskola/studie--och-yrkesvagledare.html",
+   "f": "studie-och yrkesvägledare",
+   "bedomning": "riktigt fel",
+   "anm": "inte stavfel"
+  },
+  {
+   "u": "https://www.sjobo.se/naringsliv-och-foretag/mark-och-lokaler/arrendera-mark/lediga-arrenden.html",
+   "f": "På betet förekommer blodhalning på nötkreatur",
+   "bedomning": "inte fel"
+  },
+  {
+   "u": "https://www.sjobo.se/trafik-och-gator/ersattningsansprak-mot-sjobo-kommun.html",
+   "f": "Du bör alltid i först hand kontakta ditt eget försäkringsbolag",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/uppleva-och-gora/idrott-motion-och-aktiviteter/bada-i-sjobo/bada-med-djur.html",
+   "f": "Inom ett speciellt område vid Sövdesjöns badplats, r du välkommen att bada med din hund",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/uppleva-och-gora/idrott-motion-och-aktiviteter/bada-i-sjobo/bada-med-djur.html",
+   "f": "Låt aldrig din häst, hund eller annnat djur dricka av insjövatten",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/utbildning-och-forskola/skolskjuts-i-sjobo.html",
+   "f": "För dej som ska gå på gymnasieskola - gör din ansökan om resekort här",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/utbildning-och-forskola/plugga-till-larare-med-lon.html",
+   "f": "Vi erbjuder mjligheten att kombinera studierna till lärare på Högskolan i Kristianstad",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/naringsliv-och-foretag/tillstand-regler-och-tillsyn/djur-och-lantbruk/hastar-och-hastgardar.html",
+   "f": "till närmsta bostad",
+   "bedomning": "inte fel"
+  },
+  {
+   "u": "https://www.sjobo.se/bygga-bo-och-miljo/miljo-och-halsoskydd/forsaljning-av-folkol.html",
+   "f": "Om ditt barn eller någon annan minderårig tillåts köpa folköl på något frsäljningsställe, så tar miljöenheten tacksamt emot anmälningar om detta",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/bygga-bo-och-miljo/min-bostad/vatten-och-avlopp/dricksvatten/egen-dricksvattenbrunn.html",
+   "f": "Kontakta ansvariga i samfälligheten eller föreningen för närmare information om dricskvattenkvaliten",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/bygga-bo-och-miljo/min-bostad/boendemiljo.html",
+   "f": "Sota Sota ofta",
+   "bedomning": "inte fel"
+  },
+  {
+   "u": "https://sjobo.se/naringsliv-och-foretag/tillstand-regler-och-tillsyn/livsmedel/livsmedelskontroll.html",
+   "f": "görs även även bokade besök",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/naringsliv-och-foretag/evenemang-och-natverk-for-foretagare/foretagsfrukost.html",
+   "f": "Sjobo.se använder kakor och mätverktyg för att ge dig en bttre upplevelse",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/naringsliv-och-foretag/evenemang-och-natverk-for-foretagare/foretagarforeningar-och-natverk.html",
+   "f": "Sjöbo handelsklubb är en förening som arbetar för att skapa gemenskap hos företagarna i vår byggd",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/naringsliv-och-foretag/evenemang-och-natverk-for-foretagare/foretagarforeningar-och-natverk.html",
+   "f": "LRFs kommungrupp",
+   "bedomning": "riktigt fel",
+   "anm": "inte stavfel"
+  },
+  {
+   "u": "https://sjobo.se/naringsliv-och-foretag/tillstand-regler-och-tillsyn/livsmedel/driva-livsmedelsanlaggning.html",
+   "f": "Om du tänker driva en livsmedelanläggning där du använder dricksvatten från en privat brunn",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/utbildning-och-forskola/grundskola-och-fritidshem/grundskolor-i-sjobo/lovestad-skola.html",
+   "f": "deltaga vid skolrådet",
+   "bedomning": "stilförslag"
+  },
+  {
+   "u": "https://www.sjobo.se/utbildning-och-forskola/grundskola-och-fritidshem/grundskolor-i-sjobo/anpassad-grundskola.html",
+   "f": "Under lovdagar kan andra aktiviter erbjudas utifrån ungdomarnas önskemål",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/omsorg-och-stod/ekonomi-och-radgivning/forsorjningsstod-ekonomiskt-bistand.html",
+   "f": "Om du inte kan försörja dig själv och din familj kan du ha rätt till försörjningstöd",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/utbildning-och-forskola/sjobo-utbildningscentrum/stod-pa-vagen-till-jobb.html",
+   "f": "Finsam-projektet IRIS ett förrehabiliteringsprojekt för försäkringskassans försäkrade",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/utbildning-och-forskola/grundskola-och-fritidshem/grundskolor-i-sjobo/anpassad-grundskola.html",
+   "f": "Utbildningen ska förmedla och förankra respekt för de mänskliga rättigheterna och de grundläggande dem okratiska värderingar som det svenska samhället vilar på",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/utbildning-och-forskola/gymnasieskola/inackorderingsbidrag-for-gymnasieelev.html",
+   "f": "Centrala studiestödsnämnen",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/jobb-och-arbetsmarknad/att-jobba-hos-oss/mot-vara-medarbetare.html",
+   "f": "relationskapande kontakter",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/naringsliv-och-arbete/for-dig-som-ar-foretagare/tillstand-regler-och-tillsyn.html",
+   "f": "På sidorna under Djur och lantbruk kan du även läsa mer om vad som gäller vid gördselhantering, slamspridning, kemisk bekämpning och avfall",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/bygga-bo-och-miljo/min-bostad/avfall/svar-pa-vanliga-fragor-om-sopor-och-sophamtning.html",
+   "f": "är det är viktigt",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/arkiv/nyhetsarkiv/nyheter/2023-04-25-i-sjobo-ar-samverkan-vagen-till-basta-skolan.html",
+   "f": "rektorer, pedagoger och elever på Emanuelskolan, Vollsjö skola och Försingaskolan har under det senaste året arbetat",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/ovrigt/kontakta-oss/vanliga-fragor-och-svar.html",
+   "f": "Kommunhuset ligger vid Gamla Torg i cetrala Sjöbo",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/utbildning-och-barnomsorg/forskola-och-barnomsorg/fragor-och-svar-forskola.html",
+   "f": "allmän förskola placering",
+   "bedomning": "riktigt fel",
+   "anm": "inte stavfel"
+  },
+  {
+   "u": "https://www.sjobo.se/bygga-bo-och-miljo/miljo-och-halsoskydd.html",
+   "f": "är för närvarande är",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/bygga-bo-och-miljo/min-bostad/avfall/har-atervinner-du-ditt-avfall.html",
+   "f": "Du legitimerar dig med hjälp av körkort eller via mobilt Bank ID och appen Sysav app som du kan ladda ner till din telefon",
+   "bedomning": "riktigt fel",
+   "anm": "inte stavfel"
+  },
+  {
+   "u": "https://www.sjobo.se/bygga-bo-och-miljo/min-bostad/avfall/har-atervinner-du-ditt-avfall.html",
+   "f": "appen Sysav app",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://www.sjobo.se/naringsliv-och-foretag/tillstand-regler-och-tillsyn/livsmedel/smiley-livsmedelskontroll.html",
+   "f": "Här finns resultatet av miljöenhetens inspektioner, utryckt i smileys som bygger på antalet avvikelser och miljöenhetens bedömning",
+   "bedomning": "riktigt fel"
+  },
+  {
+   "u": "https://sjobo.se/ovrigt/kontakta-oss/vara-blanketter.html",
+   "f": "Entreprenorslista.pdf , 349.2 kB",
+   "bedomning": "inte fel"
+  },
+  {
+   "u": "https://sjobo.se/ovrigt/kontakta-oss/vara-blanketter.html",
+   "f": "Flodesschema - handlaggning av avlopp.pdf , 189.9 kB",
+   "bedomning": "inte fel"
+  },
+  {
+   "u": "https://sjobo.se/ovrigt/kontakta-oss/vara-blanketter.html",
+   "f": "enkelt-avhjalpt-lokaler-2015.pdf , 8.1 MB",
+   "bedomning": "inte fel"
+  },
+  {
+   "u": "https://www.sjobo.se/naringsliv-och-foretag/tillstand-regler-och-tillsyn/djur-och-lantbruk/hastar-och-hastgardar.html",
+   "f": "Nedgrävning får inte ske inom område med Natura-2000, naturreservat, vattenskyddsområde, område med nationellt eller regionalt särskilt värdefulla vatten eller andra områden med liknade skydd",
+   "bedomning": "riktigt fel",
+   "anm": "inte stavfel"
+  },
+  {
+   "u": "https://www.sjobo.se/naringsliv-och-foretag/tillstand-regler-och-tillsyn/djur-och-lantbruk/hastar-och-hastgardar.html",
+   "f": "andra områden med liknade skydd",
+   "bedomning": "riktigt fel"
+  }
+ ]
+}
