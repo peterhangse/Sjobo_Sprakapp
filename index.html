@@ -743,6 +743,27 @@
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(-6px); }
   .toast.error { background: var(--akut); }
 
+  /* === Andra verktyg (liten sidoknapp) === */
+  .andra-verktyg { position: fixed; right: 0; bottom: 96px; z-index: 50; display: flex; align-items: flex-end; font-size: 13px; }
+  .andra-verktyg-knapp {
+    writing-mode: vertical-rl; transform: rotate(180deg);
+    background: var(--surface); color: var(--text-mid);
+    border: 1px solid var(--border); border-left: 0; border-radius: 0 8px 8px 0;
+    padding: 12px 6px; font: inherit; font-size: 12.5px; cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  .andra-verktyg-knapp:hover { color: var(--text); background: var(--border-light); }
+  .andra-verktyg-knapp:focus-visible, .andra-verktyg-lista a:focus-visible { outline: 2px solid var(--blue-700); outline-offset: 2px; }
+  .andra-verktyg-lista {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+    padding: 10px 14px; margin-right: 6px; box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+    max-width: 240px;
+  }
+  .andra-verktyg-lista[hidden] { display: none; }
+  .andra-verktyg-lista a { color: var(--blue-700); font-weight: 600; text-decoration: underline; }
+  .andra-verktyg-lista span { display: block; color: var(--text-muted); font-size: 12px; margin-top: 2px; }
+  @media print { .andra-verktyg { display: none; } }
+
   /* === Lösenordsgrind === */
   #pw-gate {
     position: fixed; inset: 0; z-index: 9999;
@@ -2064,6 +2085,27 @@ async function loadDataset() {
 
 
 checkUnlock();
+</script>
+<aside class="andra-verktyg" aria-label="Andra verktyg">
+  <div class="andra-verktyg-lista" id="andra-verktyg-lista" hidden>
+    <a href="/rendera/">Gör bild av kod från Svea</a>
+    <span>Gör om Sveas kod för ikoner och flödesscheman till färdiga bilder</span>
+  </div>
+  <button class="andra-verktyg-knapp" type="button" id="andra-verktyg-knapp" aria-expanded="false" aria-controls="andra-verktyg-lista">Andra verktyg</button>
+</aside>
+<script>
+(function () {
+  var knapp = document.getElementById('andra-verktyg-knapp');
+  var lista = document.getElementById('andra-verktyg-lista');
+  function stang() { lista.hidden = true; knapp.setAttribute('aria-expanded', 'false'); }
+  knapp.addEventListener('click', function () {
+    var oppna = lista.hidden;
+    lista.hidden = !oppna;
+    knapp.setAttribute('aria-expanded', oppna ? 'true' : 'false');
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !lista.hidden) { stang(); knapp.focus(); } });
+  document.addEventListener('click', function (e) { if (!e.target.closest('.andra-verktyg')) stang(); });
+})();
 </script>
 </body>
 </html>
