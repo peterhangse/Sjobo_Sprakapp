@@ -94,6 +94,20 @@ skriva nytt. Notera: `sjobo-trasig.json` innehåller bara `items` (ingen
 - `data/sjobo-sprakfel|redaktionellt|oklart|trasig.json` är en äldre uppdelning
   av augustidatat och används inte av appen.
 
+## Andra verktyg (13 nov 2026)
+
+- `rendera/index.html` är ett fristående verktyg på `/rendera/` som gör bild
+  (PNG/SVG) av SVG- och Mermaid-kod från Svea (sveagpt.se). En enda fil utan
+  beroenden till appen: egen CSS, logotypen inbäddad och Mermaid 11 inbakat
+  i filen (därav ca 3,5 MB). Allt körs i webbläsaren, inget nätanrop och
+  ingen Firestore. Sidan ligger utanför lösenordsgrinden.
+- Mermaid ritas med `htmlLabels: false` så att exporterad SVG har riktig text
+  (fungerar i Word och i PNG-exporten). Inklistrad SVG rensas från script,
+  `foreignObject` och `on*`-attribut innan den visas.
+- `index.html` har en liten sidoknapp "Andra verktyg" (`.andra-verktyg`, fast
+  i högerkanten) som länkar dit. Nya verktyg läggs som fler länkar i
+  `#andra-verktyg-lista`.
+
 ## Gotchas (verifierat)
 
 - **`local_granskning.py`** (repo-rot, util) använder `gpt-oss:20b` via Ollama
