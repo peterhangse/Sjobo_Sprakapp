@@ -744,15 +744,15 @@
   .toast.error { background: var(--akut); }
 
   /* === Andra verktyg (liten sidoknapp) === */
-  .andra-verktyg { position: fixed; right: 0; bottom: 96px; z-index: 50; display: flex; align-items: flex-end; font-size: 13px; }
+  .andra-verktyg { position: fixed; right: 0; top: 50%; transform: translateY(-50%); z-index: 50; display: flex; align-items: center; font-size: 13px; }
   .andra-verktyg-knapp {
     writing-mode: vertical-rl; transform: rotate(180deg);
-    background: var(--surface); color: var(--text-mid);
-    border: 1px solid var(--border); border-left: 0; border-radius: 0 8px 8px 0;
-    padding: 12px 6px; font: inherit; font-size: 12.5px; cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    background: var(--blue-500); color: white;
+    border: 0; border-radius: 0 8px 8px 0;
+    padding: 16px 9px; font: inherit; font-size: 13.5px; font-weight: 600; letter-spacing: 0.2px; cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
   }
-  .andra-verktyg-knapp:hover { color: var(--text); background: var(--border-light); }
+  .andra-verktyg-knapp:hover { background: var(--blue-600); }
   .andra-verktyg-knapp:focus-visible, .andra-verktyg-lista a:focus-visible { outline: 2px solid var(--blue-700); outline-offset: 2px; }
   .andra-verktyg-lista {
     background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
@@ -2089,7 +2089,7 @@ checkUnlock();
 <aside class="andra-verktyg" aria-label="Andra verktyg">
   <div class="andra-verktyg-lista" id="andra-verktyg-lista" hidden>
     <a href="/rendera/">Gör bild av kod från Svea</a>
-    <span>Gör om Sveas kod för ikoner och flödesscheman till färdiga bilder</span>
+    <span>Klistra in Sveas kod, ladda ner bilden</span>
   </div>
   <button class="andra-verktyg-knapp" type="button" id="andra-verktyg-knapp" aria-expanded="false" aria-controls="andra-verktyg-lista">Andra verktyg</button>
 </aside>
