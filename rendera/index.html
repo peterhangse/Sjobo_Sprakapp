@@ -59,9 +59,15 @@
   .opt { font-size: 13.5px; display: inline-flex; align-items: center; gap: 6px; color: var(--text-mid); }
   #stage { min-height: 340px; border: 1px dashed var(--blue-200); border-radius: 8px; display: flex; align-items: center; justify-content: center; overflow: auto; padding: 16px; background: #fff; }
   #stage svg { max-width: 100%; height: auto; }
-  #stage:empty::before { content: "Här visas bilden när du har klistrat in kod."; color: var(--text-muted); font-size: 14px; }
+  #stage:empty::before { content: "Här visas bilden."; color: var(--text-muted); font-size: 14px; }
   #status { font-size: 13.5px; margin-top: 8px; min-height: 20px; color: var(--text-mid); }
   #status.err { color: var(--akut); white-space: pre-wrap; }
+  .kort { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .kort .info-section { margin-bottom: 0; }
+  @media (max-width: 760px) { .kort { grid-template-columns: 1fr; } }
+  .fler-val { margin-top: 12px; font-size: 13.5px; color: var(--text-mid); }
+  .fler-val summary { cursor: pointer; width: fit-content; }
+  .exempel { font-style: italic; }
   .info-back { margin-top: 22px; display: flex; justify-content: flex-end; }
 </style>
 </head>
@@ -79,25 +85,7 @@
 </header>
 <main class="page" id="app">
   <h1 class="section-title">Gör bild av kod från Svea</h1>
-  <p class="section-sub">Ett verktyg som gör om koden du får från Svea till en färdig bild.</p>
-
-  <div class="info-section">
-    <h2>Vad är det här?</h2>
-    <p>När du ber <a href="https://sveagpt.se/chatt" target="_blank" rel="noopener">Svea</a> om en ikon eller ett flödesschema får du inte en bild tillbaka. Du får kod som beskriver bilden. Här klistrar du in den koden och får en bild som du kan lägga in i Word, PowerPoint, Teams eller på webben.</p>
-    <p>Verktyget klarar två sorters kod. SVG används för ikoner och enkla illustrationer. Mermaid används för flödesscheman och andra diagram.</p>
-  </div>
-
-  <div class="info-section">
-    <h2>Så gör du</h2>
-    <ol class="info-steps">
-      <li>Öppna <a href="https://sveagpt.se/chatt" target="_blank" rel="noopener">Svea</a> och be om bilden som kod. Skriv att du vill ha SVG-kod för en ikon, eller Mermaid-kod för ett flöde.</li>
-      <li>Kopiera Sveas svar. Du behöver inte plocka ut bara koden, det går bra att kopiera hela svaret.</li>
-      <li>Klistra in det i rutan här nedanför. Bilden visas direkt.</li>
-      <li>Klicka på "Ladda ner PNG" eller "Kopiera bilden" och lägg in bilden där du vill ha den.</li>
-    </ol>
-    <p class="exempel">Så kan du skriva till Svea: "Skriv Mermaid-kod för ett flödesschema som visar hur en ansökan om bygglov handläggs, från ansökan till beslut."</p>
-    <p class="info-aside">Koden du klistrar in stannar i din webbläsare. Den skickas inte vidare och sparas inte någonstans.</p>
-  </div>
+  <p class="section-sub">Klistra in koden från <a href="https://sveagpt.se/chatt" target="_blank" rel="noopener">Svea</a>. Ladda ner bilden.</p>
 
   <div class="info-section">
     <div class="verktyg">
@@ -105,49 +93,58 @@
         <label class="steg" for="code">1. Klistra in koden <small id="kind"></small></label>
         <textarea id="code" spellcheck="false" placeholder="Klistra in svaret från Svea här"></textarea>
         <div class="row">
-          <button class="btn btn-liten" type="button" id="paste">Klistra in från urklipp</button>
-          <button class="btn btn-liten" type="button" id="clear">Töm rutan</button>
-        </div>
-        <div class="row">
-          <span class="opt">Vill du se hur det fungerar?</span>
-          <button class="btn btn-liten" type="button" id="ex-m">Visa exempel på flöde</button>
-          <button class="btn btn-liten" type="button" id="ex-s">Visa exempel på ikon</button>
+          <button class="btn btn-liten" type="button" id="clear">Töm</button>
+          <button class="btn btn-liten" type="button" id="ex-m">Exempel: diagram</button>
+          <button class="btn btn-liten" type="button" id="ex-s">Exempel: ikon</button>
         </div>
       </div>
       <div>
-        <span class="steg">2. Här är bilden</span>
+        <span class="steg">2. Ladda ner bilden</span>
         <div id="stage" aria-live="polite"></div>
         <div id="status" role="status"></div>
-        <span class="steg" style="margin-top:14px">3. Spara eller kopiera</span>
-        <div class="row" style="margin-top:0">
+        <div class="row">
           <button class="btn btn-primary" type="button" id="dl-png" disabled>Ladda ner PNG</button>
           <button class="btn" type="button" id="copy-png" disabled>Kopiera bilden</button>
           <button class="btn" type="button" id="dl-svg" disabled>Ladda ner SVG</button>
         </div>
-        <div class="row">
-          <label class="opt" for="name">Filnamn <input type="text" id="name" value="bild" size="14"></label>
-          <label class="opt" for="scale">Storlek
-            <select id="scale"><option value="1">Liten</option><option value="2" selected>Normal</option><option value="4">Stor (för tryck)</option></select>
-          </label>
-          <label class="opt"><input type="checkbox" id="white" checked> Vit bakgrund</label>
-        </div>
+        <details class="fler-val">
+          <summary>Fler val</summary>
+          <div class="row">
+            <label class="opt" for="name">Filnamn <input type="text" id="name" value="bild" size="14"></label>
+            <label class="opt" for="scale">Storlek
+              <select id="scale"><option value="1">Liten</option><option value="2" selected>Normal</option><option value="4">Stor (för tryck)</option></select>
+            </label>
+            <label class="opt"><input type="checkbox" id="white" checked> Vit bakgrund</label>
+          </div>
+        </details>
       </div>
     </div>
+    <p class="info-aside">Koden stannar i din webbläsare. Inget skickas vidare eller sparas.</p>
   </div>
 
-  <div class="info-section">
-    <h2>Vilket format ska jag välja?</h2>
-    <p>Välj PNG om bilden ska in i Word, PowerPoint, Teams eller ett mejl. Det fungerar överallt. Knappen "Kopiera bilden" gör samma sak, men du klistrar in bilden direkt med Ctrl+V i stället för att spara en fil.</p>
-    <p>Välj SVG om bilden ska ligga på en webbsida eller förstoras mycket. En SVG-bild blir aldrig suddig, men alla program kan inte visa den.</p>
+  <div class="kort">
+    <div class="info-section">
+      <h2>Be Svea om kod</h2>
+      <p>Svea svarar med kod i stället för bild. Be om SVG-kod för en ritad bild eller Mermaid-kod för ett diagram. Kopiera hela svaret.</p>
+      <p class="exempel">"Skriv Mermaid-kod för ett flödesschema över hur en bygglovsansökan handläggs."</p>
+    </div>
+    <div class="info-section">
+      <h2>Det här går att göra</h2>
+      <p>Med SVG-kod: ikoner, illustrationer, skyltar och infografik.</p>
+      <p>Med Mermaid-kod: flödesscheman, organisationsscheman, tidslinjer, tidsplaner, tankekartor, tårtdiagram och stapeldiagram.</p>
+      <p>Enkla bilder blir bäst. Foton går inte.</p>
+    </div>
+    <div class="info-section">
+      <h2>PNG eller SVG?</h2>
+      <p>PNG fungerar i Word, PowerPoint, Teams och mejl.</p>
+      <p>SVG passar på webben och blir aldrig suddig.</p>
+    </div>
+    <div class="info-section">
+      <h2>Blir det fel?</h2>
+      <p>Kontrollera att hela svaret från Svea kom med.</p>
+      <p>Hjälper inte det: klistra in felmeddelandet hos Svea och be om rättad kod.</p>
+    </div>
   </div>
-
-  <div class="info-section">
-    <h2>Om det inte fungerar</h2>
-    <p>Om du får ett rött felmeddelande i stället för en bild är det oftast koden som är trasig. Kontrollera att du fick med hela svaret från Svea. Hjälper inte det kan du klistra in felmeddelandet hos Svea och be om rättad kod.</p>
-    <p>Om bilden blir rätt men ser tråkig ut kan du be Svea ändra i koden, till exempel byta färger eller lägga till ett steg, och klistra in det nya svaret här.</p>
-  </div>
-
-  <div class="info-back"><a class="btn btn-primary" href="/">Till språkappen →</a></div>
 </main>
 
 <script>
@@ -3933,7 +3930,7 @@ globalThis["mermaid"] = globalThis.__esbuild_esm_mermaid_nm["mermaid"].default;
       .then(function () { setStatus('Bilden är kopierad. Klistra in den med Ctrl+V.'); })
       .catch(function () { setStatus('Webbläsaren tillåter inte kopiering härifrån. Använd Ladda ner PNG.', true); });
   };
-  $('paste').onclick = function () {
+  if ($('paste')) $('paste').onclick = function () {
     if (!navigator.clipboard || !navigator.clipboard.readText) { setStatus('Klicka i rutan och tryck Ctrl+V i stället.', true); return; }
     navigator.clipboard.readText().then(function (t) { code.value = t; render(); })
       .catch(function () { setStatus('Klicka i rutan och tryck Ctrl+V i stället.', true); });
