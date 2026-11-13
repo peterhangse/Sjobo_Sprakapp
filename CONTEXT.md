@@ -104,8 +104,8 @@ skriva nytt. Notera: `sjobo-trasig.json` innehåller bara `items` (ingen
 - Mermaid ritas med `htmlLabels: false` så att exporterad SVG har riktig text
   (fungerar i Word och i PNG-exporten). Inklistrad SVG rensas från script,
   `foreignObject` och `on*`-attribut innan den visas.
-- `index.html` har en liten sidoknapp "Andra verktyg" (`.andra-verktyg`, fast
-  i högerkanten) som länkar dit. Nya verktyg läggs som fler länkar i
+- `index.html` har knappen "Andra verktyg" sist i sidhuvudets knapprad
+  (`.topbar-link` i `.andra-verktyg`) som öppnar en liten meny med länk dit. Nya verktyg läggs som fler länkar i
   `#andra-verktyg-lista`.
 
 ## Gotchas (verifierat)

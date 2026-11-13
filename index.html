@@ -743,26 +743,22 @@
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(-6px); }
   .toast.error { background: var(--akut); }
 
-  /* === Andra verktyg (liten sidoknapp) === */
-  .andra-verktyg { position: fixed; right: 0; top: 50%; transform: translateY(-50%); z-index: 50; display: flex; align-items: center; font-size: 13px; }
-  .andra-verktyg-knapp {
-    writing-mode: vertical-rl; transform: rotate(180deg);
-    background: var(--blue-500); color: white;
-    border: 0; border-radius: 0 8px 8px 0;
-    padding: 16px 9px; font: inherit; font-size: 13.5px; font-weight: 600; letter-spacing: 0.2px; cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-  }
-  .andra-verktyg-knapp:hover { background: var(--blue-600); }
-  .andra-verktyg-knapp:focus-visible, .andra-verktyg-lista a:focus-visible { outline: 2px solid var(--blue-700); outline-offset: 2px; }
+  /* === Andra verktyg (knapp i sidhuvudet med liten meny) === */
+  .andra-verktyg { position: relative; display: inline-block; }
   .andra-verktyg-lista {
+    position: absolute; right: 0; top: calc(100% + 8px); z-index: 150;
+    width: max-content; max-width: 260px; text-align: left;
     background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
-    padding: 10px 14px; margin-right: 6px; box-shadow: 0 6px 20px rgba(0,0,0,0.12);
-    max-width: 240px;
+    padding: 10px 14px; box-shadow: 0 6px 20px rgba(0,0,0,0.12); font-size: 13px;
   }
   .andra-verktyg-lista[hidden] { display: none; }
   .andra-verktyg-lista a { color: var(--blue-700); font-weight: 600; text-decoration: underline; }
+  .andra-verktyg-lista a:focus-visible { outline: 2px solid var(--blue-700); outline-offset: 2px; }
   .andra-verktyg-lista span { display: block; color: var(--text-muted); font-size: 12px; margin-top: 2px; }
-  @media print { .andra-verktyg { display: none; } }
+  @media (max-width: 760px) {
+    .topbar-nav { flex-wrap: wrap; row-gap: 6px; margin-left: 0; }
+    .andra-verktyg-lista { right: auto; left: 0; max-width: min(260px, 80vw); }
+  }
 
   /* === Lösenordsgrind === */
   #pw-gate {
@@ -921,6 +917,13 @@
       <button class="topbar-link" type="button" id="btn-lock" onclick="doLock()" style="display:none">Lås</button>
       <button class="topbar-link" type="button" onclick="goto('info')">Så funkar det</button>
       <button class="topbar-link" type="button" onclick="openExportModal()">Senast fixade sidor</button>
+      <span class="andra-verktyg">
+        <button class="topbar-link" type="button" id="andra-verktyg-knapp" aria-expanded="false" aria-controls="andra-verktyg-lista">Andra verktyg</button>
+        <span class="andra-verktyg-lista" id="andra-verktyg-lista" hidden>
+          <a href="/rendera/">Gör bild av kod från Svea</a>
+          <span>Klistra in Sveas kod, ladda ner bilden</span>
+        </span>
+      </span>
     </nav>
   </div>
 </header>
@@ -2086,13 +2089,6 @@ async function loadDataset() {
 
 checkUnlock();
 </script>
-<aside class="andra-verktyg" aria-label="Andra verktyg">
-  <div class="andra-verktyg-lista" id="andra-verktyg-lista" hidden>
-    <a href="/rendera/">Gör bild av kod från Svea</a>
-    <span>Klistra in Sveas kod, ladda ner bilden</span>
-  </div>
-  <button class="andra-verktyg-knapp" type="button" id="andra-verktyg-knapp" aria-expanded="false" aria-controls="andra-verktyg-lista">Andra verktyg</button>
-</aside>
 <script>
 (function () {
   var knapp = document.getElementById('andra-verktyg-knapp');
